@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4 col-sm-5  ">
+		<div class="card bg-dark " style="width: 48rem;">
+
+				<h5 class="card-header text-white" th:text="${titulo}"></h5>
+				<div class="card-body ">
+				
+				<img th:if="${#strings.isEmpty(personaje.imagen) != true }"
+					class="img-thumbnail rounded float-left" style="max-width: 25%;"
+					th:src="@{'/upload/'+${personaje.imagen}}" th:alt="${personaje.imagen}" />
+				    
+				    
+				    
+				    
+					<div class="list-group px-2">
+					    
+						<div class="list-group-item active" th:text="${personaje.nombre}"></div>
+						<div class="list-group-item" th:text="${personaje.edad} + ' de edad.'"></div>
+						<div class="list-group-item" th:text="${personaje.peso} + ' Kg.'"></div>
+						<div class="list-group-item" th:text="${personaje.historia}"></div>
+					</div>
+				</div>
+			
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>
