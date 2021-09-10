@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
-import com.practica.plataformaseriespeliculas.spring.app.models.entity.Tipo;
+
 import com.practica.plataformaseriespeliculas.spring.app.service.IService;
 //import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -22,9 +22,12 @@ public class PeliculaController {
 
 	@Autowired
 	private IService serviceDao;
+	
+	private final static String PELICULA = "pelicula"; 
 
 	@GetMapping(value = "/peliculas")
 	public String listarPeliculas(Model model) {
+		
 		List<PeliculaSerie> peliculas = serviceDao.findPeliculaAll();
 
 		log.info("Cantidad : " + peliculas.size());
@@ -37,7 +40,7 @@ public class PeliculaController {
 	@GetMapping("/pelicula/form")
 	public String crear(Model model) {
         
-		PeliculaSerie pelicula = new PeliculaSerie(Tipo.PELICULA);
+		PeliculaSerie pelicula = new PeliculaSerie(PELICULA);
 		
 		model.addAttribute("titulo", "Crear Pelicula");
 		model.addAttribute("boton","Crear Pelicula");

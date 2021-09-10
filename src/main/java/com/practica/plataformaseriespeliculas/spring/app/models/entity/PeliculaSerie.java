@@ -40,7 +40,7 @@ public class PeliculaSerie implements Serializable {
 	private Long calificacion;
 
 	@NotEmpty
-	private Tipo tipo;
+	private String tipo;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_at")
@@ -50,8 +50,9 @@ public class PeliculaSerie implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Personaje> personajes;
     
+	public PeliculaSerie() {}
 	
-	public PeliculaSerie(Tipo tipo) {
+	public PeliculaSerie(String tipo) {
 		this.tipo = tipo;
 	}
 	
@@ -104,11 +105,11 @@ public class PeliculaSerie implements Serializable {
 		this.calificacion = calificacion;
 	}
 
-	public Tipo getTipo() {
-		return tipo;
+	public String getTipo() {
+	   return this.tipo;
 	}
 
-	public void setTipo(Tipo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
