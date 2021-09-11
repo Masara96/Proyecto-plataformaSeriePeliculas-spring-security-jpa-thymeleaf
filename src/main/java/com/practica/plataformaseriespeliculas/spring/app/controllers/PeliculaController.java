@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -68,7 +69,7 @@ public class PeliculaController {
 
     
 	@PostMapping("/pelicula/form")
-	public String guardar(@Valid PeliculaSerie pelicula, BindingResult result, Model model,RedirectAttributes flash,
+	public String guardar(@Valid @ModelAttribute("pelicula") PeliculaSerie pelicula, BindingResult result, Model model,RedirectAttributes flash,
 			@RequestParam("file")  MultipartFile imagen , SessionStatus status ) {
 		
 		log.info("Nombre pelicula : " + pelicula.getTitulo());
@@ -81,12 +82,12 @@ public class PeliculaController {
 		
 		if(result.hasErrors()) {
              
-			Map< String, String> errores = new HashMap<>();
-			result.getFieldErrors().forEach(err-> {
-				errores.put(err.getField(), "El campo".concat(err.getField().concat(" ").concat(err.getDefaultMessage())));
-			});
+//			Map< String, String> errores = new HashMap<>();
+//			result.getFieldErrors().forEach(err-> {
+//				errores.put(err.getField(), "El campo".concat(err.getField().concat(" ").concat(err.getDefaultMessage())));
+//			});
 			
-			model.addAttribute("errores", errores);
+//			model.addAttribute("errores", errores);
 			model.addAttribute("title", "Crear Pelicula");
 			model.addAttribute("boton","Crear Pelicula");
 			return "pelicula-serie/form";

@@ -31,14 +31,14 @@ public class PeliculaSerie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty
+	@NotEmpty(message = "Tiene que contener una imagen")
 	private String imagen;
 
 	@NotEmpty(message = "Ingrese un titulo")
 	@Size(max = 40)
 	private String titulo;
 
-	@NotNull
+	@NotNull(message = "Tiene que ingresar una calificacion")
 	@Min(1)
 	@Max(5)
 	private Long calificacion;
