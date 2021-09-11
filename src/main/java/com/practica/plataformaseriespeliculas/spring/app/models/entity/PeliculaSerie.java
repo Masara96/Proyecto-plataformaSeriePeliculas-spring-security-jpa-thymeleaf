@@ -13,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,12 +34,13 @@ public class PeliculaSerie implements Serializable {
 	@NotEmpty
 	private String imagen;
 
-	@NotEmpty
+	@NotEmpty(message = "Ingrese un titulo")
 	@Size(max = 40)
 	private String titulo;
 
 	@NotNull
-	@Size(min = 1, max = 5)
+	@Min(1)
+	@Max(5)
 	private Long calificacion;
 
 	@NotEmpty
@@ -50,10 +54,19 @@ public class PeliculaSerie implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Personaje> personajes;
     
-	public PeliculaSerie() {}
+	public PeliculaSerie() {
+		prePersist();
+	}
+	
 	
 	public PeliculaSerie(String tipo) {
 		this.tipo = tipo;
+		prePersist();
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		this.createAt = new Date();
 	}
 	
 	public Long getId() {
