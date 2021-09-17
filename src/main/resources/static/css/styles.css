@@ -11272,4 +11272,9 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+  
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+}
 }

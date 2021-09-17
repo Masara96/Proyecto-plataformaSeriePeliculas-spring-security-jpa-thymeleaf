@@ -41,11 +41,7 @@ public class PeliculaSerieController {
 	@Autowired
 	private IUpdateService updateService;
    
-	@GetMapping(value = "/")
-	public String inicio(Model model) {
-		model.addAttribute("title", "Inicio de pagina");
-		return "inicio/index";
-	}
+
 	
 	@GetMapping(value = "/peliculas")
 	public String listarPeliculas(Model model) {
@@ -145,9 +141,10 @@ public class PeliculaSerieController {
 		}
 
 		serviceDao.savePeliculaSerie(trabajo);
+		flash.addFlashAttribute("success", "Se ha guardado el registro correctamente!");
 		status.setComplete();
-		
-		if(trabajo.getTipo() == "PELICULA") {
+		log.info("Trabajo????? " + trabajo.getTipo() );
+		if(trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
 		  return "redirect:/peliculas";
 		}else return "redirect:/series";
 		
@@ -163,7 +160,7 @@ public class PeliculaSerieController {
 			  return "redirect:/";
 		}
 		
-		if(peliculaSerie.getTipo() == "PELICULA") { 
+		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA") ) { 
 		model.addAttribute("title", "Modificar Pelicula");
 		} else model.addAttribute("title", "Modificar Serie");
 		
