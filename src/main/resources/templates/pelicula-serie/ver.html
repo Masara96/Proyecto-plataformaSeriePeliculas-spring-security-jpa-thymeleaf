@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4 col-sm-5  ">
+		<div class="card bg-dark " style="width: 48rem;">
+
+			<h5 class="card-header text-white" th:text="${title}"></h5>
+			<div class="card-body ">
+
+				<img th:if="${#strings.isEmpty(trabajo.imagen) != true }"
+					class="img-thumbnail rounded float-left" style="max-width: 25%;"
+					th:src="@{'/upload/'+${trabajo.imagen}}" th:alt="${trabajo.imagen}" />
+
+				<div class="list-group px-2">
+					<div class="list-group-item active" th:text="${trabajo.titulo}"></div>
+					<div class="list-group-item"
+						th:text="'Calificacion : ' + ${trabajo.calificacion}"></div>
+					<div class="list-group-item" th:text="'Tipo : ' +${trabajo.tipo}"></div>
+					<div class="list-group-item"
+						th:text="'Fecha ' + ${trabajo.createAt}"></div>
+				</div>
+			</div>
+
+			<div class="container mx-3 py-3"
+				th:if="${trabajo.tipo == 'PELICULA'}">
+				<label><a class="btn btn-primary text-white"
+					th:text="Volver" th:href="@{/peliculas}"></a></label>
+			</div>
+
+			<div class="container mx-3 py-3" th:if="${trabajo.tipo == 'SERIE'}">
+				<label><a class="btn btn-primary text-white"
+					th:text="Volver" th:href="@{/series}"></a></label>
+			</div>
+
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

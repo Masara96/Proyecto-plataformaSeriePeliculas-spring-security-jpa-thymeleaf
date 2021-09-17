@@ -88,7 +88,13 @@ public class ServiceGlobalImp implements IService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<PeliculaSerie> findPeliculaAll() {
-		return peliculaSerieDoa.findByTipo();
+		return peliculaSerieDoa.findByTipoPelicula();
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public List<PeliculaSerie> findSerieAll() {
+		return peliculaSerieDoa.findByTipoSerie();
 	}
 	
 	

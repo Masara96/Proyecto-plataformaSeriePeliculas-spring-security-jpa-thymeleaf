@@ -11,6 +11,8 @@ import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaS
 public interface IPeliculaSerie extends JpaRepository<PeliculaSerie, Long> {
        
 	@Query("Select p from PeliculaSerie p where p.tipo like 'PELICULA'")
-	public List<PeliculaSerie> findByTipo();
+	public List<PeliculaSerie> findByTipoPelicula();
 	
+	@Query("Select p from PeliculaSerie p where p.tipo like 'SERIE'")
+	public List<PeliculaSerie> findByTipoSerie();
 }

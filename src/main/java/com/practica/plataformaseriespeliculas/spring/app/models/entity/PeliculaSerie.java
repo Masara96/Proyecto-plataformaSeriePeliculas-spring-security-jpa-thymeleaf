@@ -31,7 +31,7 @@ public class PeliculaSerie implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message = "Tiene que contener una imagen")
+	//@NotEmpty(message = "Tiene que contener una imagen")
 	private String imagen;
 
 	@NotEmpty(message = "Ingrese un titulo")
@@ -60,7 +60,7 @@ public class PeliculaSerie implements Serializable {
 	
 	
 	public PeliculaSerie(String tipo) {
-		this.tipo = tipo;
+		this.tipo = tipo.toUpperCase();
 		prePersist();
 	}
 	

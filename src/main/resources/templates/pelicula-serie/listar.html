@@ -14,9 +14,10 @@
 			</div>
 
 			<div class="card-body">
-                    <a class="btn btn-primary text-white my-1" th:href="@{/pelicula/form}" th:text="'Crear Pelicula'"></a>
-			 	
-					<table class="table table-dark table-striped" th:if="${#lists.isEmpty(peliculas) == false}">
+                    <a th:if="${peliculas !=null}" class="btn btn-primary text-white my-1" th:href="@{/pelicula/form}" th:text="'Crear Pelicula'"></a>
+			 	    <a th:if="${series !=null}" class="btn btn-primary text-white my-1" th:href="@{/serie/form}" th:text="'Crear Serie'"></a>
+					
+					<table class="table table-dark table-striped" th:if="${#lists.isEmpty(peliculas) == false || #lists.isEmpty(series) == false  }">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -28,21 +29,36 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="pelicula : ${peliculas}">
-
-								<td><a class="btn btn-primary" th:text="${pelicula.id}"></a></td>
+							<tr th:if="${#lists.isEmpty(peliculas) == false}"  th:each="pelicula : ${peliculas}">
+								<td><a class="btn btn-primary" th:text="${pelicula.id}" th:href="@{/pelicula-serie/ver/}+${pelicula.id}"></a></td>
 								<td th:text="${pelicula.titulo}"></td>
 								<td th:text="${pelicula.calificacion}"></td>
 								<td th:text="${pelicula.tipo}"></td>
-                                <td><a class="btn btn-success" th:href="@{/peliculas}" th:text="'Editar'"></a></td>
-                                <td><a class="btn btn-danger" th:href="@{/peliculas}" th:text="'Eliminar'"></a></td>
+                                <td><a class="btn btn-success" th:href="@{/pelicula-serie/editar/}+${pelicula.id}" th:text="'Editar'"></a></td>
+                                <td><a class="btn btn-danger" th:href="@{/pelicula/eliminar/}+${pelicula.id}" th:text="'Eliminar'"></a></td>
+							</tr>
+							
+							<tr th:if="${#lists.isEmpty(series) == false}" th:each="serie : ${series}">
+								<td><a class="btn btn-primary" th:text="${serie.id}" th:href="@{/pelicula-serie/ver/}+${serie.id}" ></a></td>
+								<td th:text="${serie.titulo}"></td>
+								<td th:text="${serie.calificacion}"></td>
+								<td th:text="${serie.tipo}"></td>
+                                <td><a class="btn btn-success" th:href="@{/pelicula-serie/editar/}+${serie.id}"  th:text="'Editar'"></a></td>
+                                <td><a class="btn btn-danger"   th:text="'Eliminar'"></a></td>
 							</tr>
 						</tbody>
 					</table>
+					
+					
 				
-				<div class="alert alert-success" th:if="${#lists.isEmpty(peliculas)}"
-					th:text="'No se encuentras registros guardados en la BD.'" ></div>
+					
+				
+				<div class="alert alert-success" th:if="${#lists.isEmpty(peliculas) && #lists.isEmpty(series) }"
+					th:text="'No se encuentras registros guardados de peliculas en la BD.'" ></div>
 			   </div>
+			   
+			   
+			   
 			   
 
 

@@ -36,5 +36,8 @@ public interface IService {
 	//-----------------------------------------------------------------
 	
 	public List<PeliculaSerie> findPeliculaAll();
+	
+	public List<PeliculaSerie> findSerieAll();
+
 
 }

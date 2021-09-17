@@ -20,7 +20,7 @@
 			<div class="card-body">
 
            
-				<form th:action="@{/pelicula/form}" th:object="${pelicula}"
+				<form th:action="@{/pelicula-serie/form}" th:object="${trabajo}"
 					method="post" enctype="multipart/form-data">
 
 					<div class="form-group row">
@@ -30,9 +30,7 @@
 								id="titulo" aria-describedby="titulo-pelicula" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
-<!-- 								<small -->
-<!-- 								class="form-text text-danger" -->
-<!-- 								th:if="${errores != null}" th:text="${errores.titulo}"></small> -->
+
 								
 						</div>
 					</div>
