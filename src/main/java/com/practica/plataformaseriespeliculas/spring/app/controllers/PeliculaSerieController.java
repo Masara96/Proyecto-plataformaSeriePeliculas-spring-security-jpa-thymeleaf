@@ -9,6 +9,9 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,7 @@ import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaS
 
 import com.practica.plataformaseriespeliculas.spring.app.service.IService;
 import com.practica.plataformaseriespeliculas.spring.app.service.IUpdateService;
+import com.practica.plataformaseriespeliculas.spring.app.util.paginator.PageRender;
 
 @Controller
 @SessionAttributes("trabajo")
@@ -44,26 +48,32 @@ public class PeliculaSerieController {
 
 	
 	@GetMapping(value = "/peliculas")
-	public String listarPeliculas(Model model) {
-
-		List<PeliculaSerie> peliculas = serviceDao.findPeliculaAll();
-
-		log.info("Cantidad : " + peliculas.size());
-
+	public String listarPeliculas(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
+        
+		Pageable pageRequest = PageRequest.of(page, 4);
+		
+		Page<PeliculaSerie> peliculas = serviceDao.findPeliculaAll(pageRequest);
+       
+		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("peliculas", peliculas);
+		
 		model.addAttribute("title", "Listado de Peliculas");
 		model.addAttribute("peliculas", peliculas);
+		model.addAttribute("page",pageRender);
 		return "pelicula-serie/listar";
 	}
 
 	@GetMapping(value = "/series")
-	public String listarSerie(Model model) {
+	public String listarSerie(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
 
-		List<PeliculaSerie> series = serviceDao.findSerieAll();
-
-		log.info("Cantidad : " + series.size());
+        Pageable pageRequest = PageRequest.of(page, 4);
+		
+		Page<PeliculaSerie> series = serviceDao.findSerieAll(pageRequest);
+       
+		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("series", series);
 
 		model.addAttribute("title", "Listado de Serie");
 		model.addAttribute("series", series);
+		model.addAttribute("page",pageRender);
 
 		return "pelicula-serie/listar";
 	}

@@ -81,8 +81,8 @@ public class ServiceGlobalImp implements IService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<PeliculaSerie> findPeliculaSerieAll(Pageable pageable) {
-		return peliculaSerieDoa.findAll(pageable);
+	public Page<PeliculaSerie> findPeliculaAll(Pageable pageable) {
+		return peliculaSerieDoa.findPeliculaAll(pageable);
 	}
 
 	@Override
@@ -95,6 +95,11 @@ public class ServiceGlobalImp implements IService {
 	@Transactional(readOnly = true)
 	public List<PeliculaSerie> findSerieAll() {
 		return peliculaSerieDoa.findByTipoSerie();
+	}
+
+	@Override
+	public Page<PeliculaSerie> findSerieAll(Pageable pageable) {
+		return peliculaSerieDoa.findSerieAll(pageable);
 	}
 	
 	

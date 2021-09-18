@@ -31,13 +31,15 @@ public interface IService {
 
 	public void deletePeliculaSerie(Long id);
 	
-	public Page<PeliculaSerie> findPeliculaSerieAll(Pageable pageable);
+	public Page<PeliculaSerie> findPeliculaAll(Pageable pageable);
 	
 	//-----------------------------------------------------------------
 	
 	public List<PeliculaSerie> findPeliculaAll();
 	
 	public List<PeliculaSerie> findSerieAll();
+	
+	public Page<PeliculaSerie> findSerieAll(Pageable pageable);
 
 
 }

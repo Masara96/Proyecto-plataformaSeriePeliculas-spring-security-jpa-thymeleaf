@@ -44,6 +44,17 @@
 								th:if="${#fields.hasErrors('calificacion')}" th:errors="*{calificacion}"></small>
 						</div>
 					</div>
+					
+					<div class="form-group row">
+						<label for="sinopsis" class="col-sm-2 col-form-label"
+							th:text="'Sinopsis'"></label>
+						<div class="col-sm-6">
+							<textarea class="form-control" th:field="*{sinopsis}"
+								maxlength="120"></textarea>
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('sinopsis')}" th:errors="*{sinopsis}"></small>
+						</div>
+					</div>
 
 
 					<div class="form-group row">
@@ -52,7 +63,30 @@
 							<input type="file" name="file" class="form-control" />
 						</div>
 					</div>
-
+					
+                    <!-- Busqueda de pesonaje para la pelicula con autocompletado :D -->
+                      
+                    <div class="form-group row">
+                       <label for="buscar_personaje" class="col-sm-2 col-form-label" th:text="'Buscar Personaje'"></label>
+                       <div class="col-sm-6" >
+                          <input type="text" name="buscar_personaje" id="buscar_personaje" class="form-control" />
+                       </div>
+                    </div>      
+                          
+                    <table th:replace="pelicula-serie/plantilla-personajes :: itemsPersonajes"></table>      
+                    
+                    <table id="cargarItemsPersonas" class="table table-sm table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Edad</th>
+                          <th>Historial</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                    
 					<div class="form-group row py-2">
 						<div class="col-sm-3">
 							<button type="submit" class="btn btn-primary" th:text="${boton}"></button>

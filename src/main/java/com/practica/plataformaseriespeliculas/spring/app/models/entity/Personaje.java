@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "personajes")
@@ -32,6 +33,7 @@ public class Personaje implements Serializable {
 	private Double peso;
 
 	@NotEmpty(message = "- Debe tener una historia.")
+	@Size(max = 1500)
 	private String historia;
 
 	@ManyToMany(mappedBy = "personajes")

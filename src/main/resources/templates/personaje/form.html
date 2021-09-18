@@ -60,7 +60,7 @@
 							th:text="'Historia'"></label>
 						<div class="col-sm-6">
 							<textarea class="form-control" th:field="*{historia}"
-								maxlength="255"></textarea>
+								maxlength="1500"></textarea>
 							<small class="form-text text-danger"
 								th:if="${#fields.hasErrors('historia')}" th:errors="*{historia}"></small>
 						</div>

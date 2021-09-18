@@ -13,16 +13,18 @@
 			<div class="card-body ">
 
 				<img th:if="${#strings.isEmpty(trabajo.imagen) != true }"
-					class="img-thumbnail rounded float-left" style="max-width: 25%;"
+					class="img-thumbnail rounded float-left" style="max-width: 25%; height: 150px"
 					th:src="@{'/upload/'+${trabajo.imagen}}" th:alt="${trabajo.imagen}" />
 
-				<div class="list-group px-2">
-					<div class="list-group-item active" th:text="${trabajo.titulo}"></div>
-					<div class="list-group-item"
+				<div class="list-group px-3">
+					<div class="list-group-item active " th:text="${trabajo.titulo}"></div>
+					<div class="list-group-item list-group-item-secondary "
 						th:text="'Calificacion : ' + ${trabajo.calificacion}"></div>
-					<div class="list-group-item" th:text="'Tipo : ' +${trabajo.tipo}"></div>
-					<div class="list-group-item"
-						th:text="'Fecha ' + ${trabajo.createAt}"></div>
+					<div class="list-group-item " th:text="'Tipo : ' +${trabajo.tipo}"></div>
+					<div class="list-group-item list-group-item-secondary "
+						th:text="'Fecha: ' + ${trabajo.createAt}"></div>
+						<div class="list-group-item "
+						th:text="'Sinopsis : '+ ${trabajo.sinopsis}"></div>
 				</div>
 			</div>
 

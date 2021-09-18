@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    
+    <script type="text/javascript" th:fragment="javascript">
+         
+     $(document).ready(function(){
+    	 
+    	 $("#buscar_personaje").autocomplete({
+    		
+    		 source : function(request, response) {
+    		   $.ajax({
+    			  url : "/cargar-personaje/" + request.term,
+    			  dataType : "json",
+    			  data : {
+    				term : request.term  
+    			  },
+    			  success : function(data){
+    				  response($.map(data,function(item){
+    					 return {
+    					     value : item.id,
+    					     label : item.nombre,
+    					     edad :  item.edad,
+    					     historia : item.historia,
+    					 }; 
+    				  }));
+    			  },
+    		   }),	 
+    		 },
+    	
+    	select : function(event, ui){
+    		 
+         var linea = $("#plantillaItemsPersonaje").html();
+    		 
+    		 linea = linea.replace(/{ID}/g,ui.item.value);
+    		 linea = linea.replace(/{NOMBRE}/g,ui.item.label);
+    		 linea = linea.replace(/{EDAD}/g,ui.item.edad);
+    		 linea = linea.replace(/{HISTORIA}/g,ui.item.historia);
+        
+         $("#cargarItemsPersonas").append(linea);
+             
+            return false; 
+    	 }
+    		 
+    	 });
+    	 
+    	 
+       $("form").submit(function(){
+	     $("#plantillaItemsFactura").remove();
+		 return;
+       });
+    	 
+    });
+    
+    </script>
+    
+    
+</body>
+</html>

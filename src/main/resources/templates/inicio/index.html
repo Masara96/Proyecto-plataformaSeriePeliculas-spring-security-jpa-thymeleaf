@@ -14,28 +14,30 @@
 		</div>
 	</div>
 
-	<main>
+	<main >
 		<article>
 
 
 			<!-- Section-->
 			<section class="py-5">
-				<div class="container-xxl px-4 px-lg-5 mt-5 mx-10 position-relative">
-					<div class="row">
-						<div class="col-3 my-2" th:each="pelicula : ${peliculas}">
-							<div class="card" style="width: 18rem; align-items: center;">
+				<div class="container overflow-hidden">
+					<div class="row gy-2">
+						<div class="col-lg-3 py-3 d-flex align-items-stretch" th:each="pelicula : ${peliculas}">
+							<div class="card p-3 border bg-light  " style="width: 18rem; align-items: center;">
 								<img th:src="@{'/upload/'+${pelicula.imagen}}" th:alt="${pelicula.imagen}" class="img-thumbnail rounded float-start"
 								style="width:300px; height:200px;">
-								<div class="card-body">
-									<h5 class="card-title text-secondary" th:text="${pelicula.titulo}"></h5>
-									<p class="card-text">Some quick example text to build on
-										the card title and make up the bulk of the card's content.</p>
-									<a href="#" class="btn btn-warning">Go somewhere</a>
+								<div class="card-body ">
+									<h5 class="card-title text-secondary " th:text="${pelicula.titulo}"></h5>
+									<p class="card-text" th:text="${pelicula.sinopsis}"></p>
+									
 								</div>
+								<span class="btn btn-warning">Visualizar</span>
 							</div>
+							
 						</div>
+						 
 					</div>
-
+                   
 				</div>
 			</section>
 		</article>

@@ -41,8 +41,12 @@ public class PeliculaSerie implements Serializable {
 	@NotNull(message = "Tiene que ingresar una calificacion")
 	@Min(1)
 	@Max(5)
-	private Long calificacion;
-
+	private int calificacion;
+    
+	@NotEmpty
+	@Size(max = 120)
+	private String sinopsis;
+	
 	@NotEmpty
 	private String tipo;
 
@@ -110,12 +114,12 @@ public class PeliculaSerie implements Serializable {
 	}
 
 
-	public Long getCalificacion() {
+	public int getCalificacion() {
 		return calificacion;
 	}
 
-	public void setCalificacion(Long calificacion) {
-		this.calificacion = calificacion;
+	public void setCalificacion(int i) {
+		this.calificacion = i;
 	}
 
 	public String getTipo() {
@@ -124,6 +128,16 @@ public class PeliculaSerie implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+
+	public String getSinopsis() {
+		return sinopsis;
+	}
+
+
+	public void setSinopsis(String sinopsis) {
+		this.sinopsis = sinopsis;
 	}
 
 
