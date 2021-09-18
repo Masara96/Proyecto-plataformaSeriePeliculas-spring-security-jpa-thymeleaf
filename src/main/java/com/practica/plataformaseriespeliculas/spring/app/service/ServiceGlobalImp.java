@@ -25,6 +25,12 @@ public class ServiceGlobalImp implements IService {
 	
 	@Override
 	@Transactional(readOnly = true)
+	public List<Personaje> findByNombre(String term) {
+		return personajeDao.findByNombreLikeIgnoreCase(term);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
 	public List<Personaje> findPersonajesAll() {
 		return personajeDao.findAll();
 	}
@@ -101,6 +107,8 @@ public class ServiceGlobalImp implements IService {
 	public Page<PeliculaSerie> findSerieAll(Pageable pageable) {
 		return peliculaSerieDoa.findSerieAll(pageable);
 	}
+
+	
 	
 	
 

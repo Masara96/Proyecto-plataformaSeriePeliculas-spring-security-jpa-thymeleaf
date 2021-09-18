@@ -2,16 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     
-    <table th:fragment="itemsPersonajes" class="d-none">
-    <tbody id="plantillaItemsPersonaje">
-       <tr id="row_{ID}">
+    <table th:fragment="itemsPersonajes" class="d-none" >
+    
+    <tbody id="plantillaItemsPersonaje" >
+       <tr id="row_{ID}" class="text-white bg-secondary">
           <td class="d-none">
-           <input type="hidden" value="{ID}" name="item_id[]"/>
+           <input type="hidden" value="{ID}" name="item_id[]" />
           </td>
           <td>{NOMBRE}</td>
           <td>{EDAD}</td>
           <td>{HISTORIA}</td>
-          <td><a class="btn btn-danger btn-sm" onclick="">X</a></td>
+          <td><a class="btn btn-danger btn-sm text-white" onclick="itemsHelper.eliminarLineaFactura({ID});">X</a></td>
        </tr>
    </tbody>
 

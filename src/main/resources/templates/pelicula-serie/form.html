@@ -12,12 +12,12 @@
 
 
 
-		<div class="card bg-dark text-white" style="width: 58rem">
+		<div class="card bg-dark text-white  " style="width: 58rem">
 
 			<div class="card-header text-warning">
 				<h3 th:text="${title}"></h3>
 			</div>
-			<div class="card-body">
+			<div class="card-body" >
 
            
 				<form th:action="@{/pelicula-serie/form}" th:object="${trabajo}"
@@ -25,7 +25,7 @@
 
 					<div class="form-group row">
 						<label for="titulo" class="col-sm-2 col-form-label">Titulo </label>
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<input type="text" class="form-control" th:field="*{titulo}"
 								id="titulo" aria-describedby="titulo-pelicula" /> <small
 								class="form-text text-danger"
@@ -37,9 +37,9 @@
 
 					<div class="form-group row">
 						<label for="calificacion" class="col-sm-2 col-form-label">Calificacion</label>
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<input type="text" class="form-control" id="calificacion"
-								aria-describedby="calificacion-pelicula" th:field="*{calificacion}" /> <small
+								aria-describedby="calificacion-pelicula" th:field="*{calificacion}" value="'1'"/> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('calificacion')}" th:errors="*{calificacion}"></small>
 						</div>
@@ -48,7 +48,7 @@
 					<div class="form-group row">
 						<label for="sinopsis" class="col-sm-2 col-form-label"
 							th:text="'Sinopsis'"></label>
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<textarea class="form-control" th:field="*{sinopsis}"
 								maxlength="120"></textarea>
 							<small class="form-text text-danger"
@@ -59,7 +59,7 @@
 
 					<div class="form-group row">
 						<label for="file" class="col-sm-2 col-form-label">Imagen</label>
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<input type="file" name="file" class="form-control" />
 						</div>
 					</div>
@@ -68,19 +68,20 @@
                       
                     <div class="form-group row">
                        <label for="buscar_personaje" class="col-sm-2 col-form-label" th:text="'Buscar Personaje'"></label>
-                       <div class="col-sm-6" >
+                       <div class="col-sm-8" >
                           <input type="text" name="buscar_personaje" id="buscar_personaje" class="form-control" />
                        </div>
                     </div>      
                           
                     <table th:replace="pelicula-serie/plantilla-personajes :: itemsPersonajes"></table>      
                     
-                    <table id="cargarItemsPersonas" class="table table-sm table-striped table-hover">
+                    <table id="cargarItemsPersonas" class="table table-sm table-striped table-hover text-white mx-2" style="width: 50rem">
                       <thead>
                         <tr>
                           <th>Nombre</th>
                           <th>Edad</th>
                           <th>Historial</th>
+                          <th>Eliminar</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -99,5 +100,6 @@
 	</div>
 
 	<footer th:replace="layout/layout :: footer"></footer>
+	<script th:replace="pelicula-serie/js/autocomplete-personajes :: javascript"></script>
 </body>
 </html>

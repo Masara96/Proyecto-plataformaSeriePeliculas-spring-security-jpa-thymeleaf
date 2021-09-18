@@ -22,13 +22,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
-
+import com.practica.plataformaseriespeliculas.spring.app.models.entity.Personaje;
 import com.practica.plataformaseriespeliculas.spring.app.service.IService;
 import com.practica.plataformaseriespeliculas.spring.app.service.IUpdateService;
 import com.practica.plataformaseriespeliculas.spring.app.util.paginator.PageRender;
@@ -77,11 +78,17 @@ public class PeliculaSerieController {
 
 		return "pelicula-serie/listar";
 	}
+	
+	@GetMapping(value = "/cargar-personaje/{term}", produces = { "application/json" })
+	public @ResponseBody List<Personaje> cargarProductos(@PathVariable String term) {
+		return serviceDao.findByNombre(term);
+	}
 
 	@GetMapping("/pelicula/form")
 	public String crearPelicula(Model model) {
 
 		PeliculaSerie pelicula = new PeliculaSerie("PELICULA");
+		
 
 		log.info("Fecha : " + pelicula.getCreateAt());
 		log.info("Nombre pelicula : " + pelicula.getTitulo());
@@ -112,6 +119,7 @@ public class PeliculaSerieController {
 
 	@PostMapping("/pelicula-serie/form")
 	public String guardar(@Valid @ModelAttribute("trabajo") PeliculaSerie trabajo, BindingResult result, Model model,
+			@RequestParam(name = "item_id[]", required = false) Long[] itemId,
 			RedirectAttributes flash, @RequestParam("file") MultipartFile imagen, SessionStatus status) {
 
 //		Map< String, String> errores = new HashMap<>();
@@ -131,6 +139,8 @@ public class PeliculaSerieController {
 			}
 			return "pelicula-serie/form";
 		}
+		
+		
 
 		if (!imagen.isEmpty()) {
 

@@ -41,7 +41,7 @@ public class PeliculaSerie implements Serializable {
 	@NotNull(message = "Tiene que ingresar una calificacion")
 	@Min(1)
 	@Max(5)
-	private int calificacion;
+	private int calificacion = 1;
     
 	@NotEmpty
 	@Size(max = 120)

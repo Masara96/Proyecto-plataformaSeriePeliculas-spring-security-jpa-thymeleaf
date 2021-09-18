@@ -21,6 +21,8 @@ public interface IService {
 
 	public void deletePersonaje(Long id);
 	
+	public List<Personaje> findByNombre(String term);
+	
 	//--------------------------------------------------------------
 	
 	public List<PeliculaSerie> findPeliculasSerieAll();
