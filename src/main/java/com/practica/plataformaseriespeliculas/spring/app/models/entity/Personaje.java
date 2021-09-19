@@ -1,6 +1,7 @@
 package com.practica.plataformaseriespeliculas.spring.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -38,7 +39,11 @@ public class Personaje implements Serializable {
 
 	@ManyToMany(mappedBy = "personajes")
 	private List<PeliculaSerie> peliculaSerie;
-
+    
+	public Personaje() {
+		this.peliculaSerie = new ArrayList<PeliculaSerie>();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -86,11 +91,28 @@ public class Personaje implements Serializable {
 	public void setHistoria(String historia) {
 		this.historia = historia;
 	}
-
+    
+	public PeliculaSerie getPeliOrSerie(Long id) {
+		
+		PeliculaSerie peliculaSerieNew = new PeliculaSerie(); 
+		for (PeliculaSerie peliculaSerie2 : peliculaSerie) {
+			 if(peliculaSerie2.getId() == id) {
+				 peliculaSerieNew = peliculaSerie2;
+				 break;
+			 }
+		}
+		
+		return peliculaSerieNew;
+	}
+	
+	public void setPeliOrSerie(PeliculaSerie peliculaSerie) {
+		this.peliculaSerie.add(peliculaSerie);
+	}
+	
 	public List<PeliculaSerie> getPeliculaSerie() {
 		return peliculaSerie;
 	}
-
+ 
 	public void setPeliculaSerie(List<PeliculaSerie> peliculaSerie) {
 		this.peliculaSerie = peliculaSerie;
 	}

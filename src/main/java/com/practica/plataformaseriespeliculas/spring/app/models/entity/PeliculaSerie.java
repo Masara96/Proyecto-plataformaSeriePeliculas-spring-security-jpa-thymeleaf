@@ -1,12 +1,14 @@
 package com.practica.plataformaseriespeliculas.spring.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,6 +24,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pelicula_serie")
@@ -55,7 +59,8 @@ public class PeliculaSerie implements Serializable {
 	private Date createAt;
 
 	@JoinTable(name = "rel_peliserie_pers", joinColumns = @JoinColumn(columnDefinition = "FK_pelicula_serie", nullable = false), inverseJoinColumns = @JoinColumn(columnDefinition = "FK_personaje", nullable = false))
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany( fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
+	@JsonIgnore
 	private List<Personaje> personajes;
     
 	public PeliculaSerie() {
@@ -66,11 +71,30 @@ public class PeliculaSerie implements Serializable {
 	public PeliculaSerie(String tipo) {
 		this.tipo = tipo.toUpperCase();
 		prePersist();
+		this.personajes = new ArrayList<Personaje>();
 	}
 	
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();
+	
+	}
+	
+	public void setPersonaje(Personaje personaje) {
+		this.personajes.add(personaje);
+	}
+	
+	public Personaje getPersonaje(Long id) {
+		
+		Personaje personajeObtener = new Personaje();
+		
+		for (Personaje personaje : personajes) {
+			if (personaje.getId() == id) {
+				personajeObtener = personaje;
+				break;
+			}
+		}
+		return personajeObtener;
 	}
 	
 	public Long getId() {

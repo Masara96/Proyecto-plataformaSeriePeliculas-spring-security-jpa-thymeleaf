@@ -35,7 +35,7 @@
 								<td th:text="${pelicula.calificacion}"></td>
 								<td th:text="${pelicula.tipo}"></td>
                                 <td><a class="btn btn-success" th:href="@{/pelicula-serie/editar/}+${pelicula.id}" th:text="'Editar'"></a></td>
-                                <td><a class="btn btn-danger" th:href="@{/pelicula/eliminar/}+${pelicula.id}" th:text="'Eliminar'"></a></td>
+                                <td><a class="btn btn-danger" th:href="@{/pelicula-serie/eliminar/}+${pelicula.id}" onclick="alert('Esta seguro de eliminar?')" th:text="'Eliminar'"></a></td>
 							</tr>
 							
 							<tr th:if="${#lists.isEmpty(series) == false}" th:each="serie : ${series}">
@@ -44,7 +44,7 @@
 								<td th:text="${serie.calificacion}"></td>
 								<td th:text="${serie.tipo}"></td>
                                 <td><a class="btn btn-success" th:href="@{/pelicula-serie/editar/}+${serie.id}"  th:text="'Editar'"></a></td>
-                                <td><a class="btn btn-danger"   th:text="'Eliminar'"></a></td>
+                                <td><a class="btn btn-danger" th:href="@{/pelicula-serie/eliminar/}+${serie.id}" onclick="alert('Esta seguro de eliminar?')" th:text="'Eliminar'"></a></td>
 							</tr>
 						</tbody>
 					</table>

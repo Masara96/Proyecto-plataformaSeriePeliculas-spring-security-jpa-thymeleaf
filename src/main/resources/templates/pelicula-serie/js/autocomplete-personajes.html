@@ -29,6 +29,10 @@
 			},
     	
     	select : function(event, ui){
+    		
+    	if(itemsHelper.hasPersonaje(ui.item.value)){
+    		return false;
+    	}
     		 
          var linea = $("#plantillaItemsPersonaje").html();
     		 
@@ -37,8 +41,7 @@
     		 linea = linea.replace(/{EDAD}/g,ui.item.edad);
     		 linea = linea.replace(/{HISTORIA}/g,ui.item.historia);
         
-         $("#cargarItemsPersonas tbody").append(linea);
-             
+         $("#cargarItemsPersonas tbody").append(linea);  
             return false; 
     	 }
     		 
@@ -46,7 +49,7 @@
     	 
     	 
        $("form").submit(function(){
-	     $("#plantillaItemsFactura").remove();
+	     $("#plantillaItemsPersonaje").remove();
 		 return;
        });
     	 
@@ -57,6 +60,19 @@
     		 
     		 eliminarLineaPersonaje: function(id){
 					$("#row_" + id).remove();
+				},
+				
+				hasPersonaje: function(id){
+					
+					var resultado = false;
+					
+					$('input[name="item_id[]"]').each(function(){
+						if(parseInt(id) == parseInt($(this).val()) ){
+							resultado = true;
+						}
+					});
+					
+					return resultado;
 				}
 				
 	        

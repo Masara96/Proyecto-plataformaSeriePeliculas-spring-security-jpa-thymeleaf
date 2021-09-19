@@ -122,15 +122,10 @@ public class PeliculaSerieController {
 			@RequestParam(name = "item_id[]", required = false) Long[] itemId,
 			RedirectAttributes flash, @RequestParam("file") MultipartFile imagen, SessionStatus status) {
 
-//		Map< String, String> errores = new HashMap<>();
-//		result.getFieldErrors().forEach(err-> {
-//			errores.put(err.getField(), "El campo".concat(err.getField().concat(" ").concat(err.getDefaultMessage())));
-//		});
 
-//		model.addAttribute("errores", errores);		
 
 		if (result.hasErrors()) {
-			if (trabajo.getTipo() == "PELICULA") {
+			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
 				model.addAttribute("title", "Crear Pelicula");
 				model.addAttribute("boton", "Crear Pelicula");
 			} else {
@@ -140,7 +135,18 @@ public class PeliculaSerieController {
 			return "pelicula-serie/form";
 		}
 		
-		
+		if(itemId == null || itemId.length == 0 ) {
+			
+			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
+				model.addAttribute("title", "Crear Pelicula");
+				model.addAttribute("boton", "Crear Pelicula");
+			} else {
+				model.addAttribute("title", "Crear Serie");
+				model.addAttribute("boton", "Crear Serie");
+			}
+			model.addAttribute("error","ERROR: La pelicula No puede no tener personajes!" );
+			return "pelicula-serie/form";
+		}
 
 		if (!imagen.isEmpty()) {
 
@@ -159,11 +165,20 @@ public class PeliculaSerieController {
 			flash.addFlashAttribute("info", "Se ha subido la imagen con exito '" + uniqueFilename + "' correctamente.");
 			trabajo.setImagen(uniqueFilename);
 		}
-
+		
+		log.info("Cantidad de items = " + itemId.length);
+         
+		for (int i = 0; i < itemId.length; i++) {
+		    Personaje personaje = serviceDao.findPersonajesById(itemId[i]);
+			trabajo.setPersonaje(personaje);
+		}
+           
+		log.info("Cantidad de personajes dentro de Pelicula o Serie : " + trabajo.getPersonajes().size());
 		serviceDao.savePeliculaSerie(trabajo);
+		
 		flash.addFlashAttribute("success", "Se ha guardado el registro correctamente!");
 		status.setComplete();
-		log.info("Trabajo????? " + trabajo.getTipo() );
+	
 		if(trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
 		  return "redirect:/peliculas";
 		}else return "redirect:/series";
@@ -199,34 +214,50 @@ public class PeliculaSerieController {
 			  return "redirect:/";
 		}
 
-		if(peliculaSerie.getTipo() == "PELICULA") { 
-			model.addAttribute("title", "Modificar Pelicula");
-			} else model.addAttribute("title", "Modificar Serie");
+		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) { 
+			model.addAttribute("title", "Detalle Pelicula");
+			} else model.addAttribute("title", "Detalle Serie");
 		
 		model.addAttribute("trabajo", peliculaSerie);
 		return "pelicula-serie/ver";
 	}
 
-	@GetMapping("/pelicula/eliminar/{id}")
+	@GetMapping("/pelicula-serie/eliminar/{id}")
 	public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
 
-		PeliculaSerie pelicula = serviceDao.findPeliculaSerieById(id);
+		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(id);
 
-		if (pelicula == null) {
-			flash.addFlashAttribute("error", "No se encuenta la pelicula en la bd");
-			return "redirect:/peliculas";
+		if (peliculaSerie == null) {
+			flash.addFlashAttribute("error", "No se encuenta el registro en la BD");
+			return "redirect:/index";
 		}
 
 		serviceDao.deletePeliculaSerie(id);
 
-		if (pelicula.getImagen() != null) {
-			if (updateService.delete(pelicula.getImagen())) {
-				log.info("Se ha eliminado la imagen '" + pelicula.getImagen() + "' correctamente");
+		if (peliculaSerie.getImagen() != null) {
+			if (updateService.delete(peliculaSerie.getImagen())) {
+				log.info("Se ha eliminado la imagen '" + peliculaSerie.getImagen() + "' correctamente");
 			}
 		}
-
+        
+		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) {
 		flash.addFlashAttribute("success", "Se ha eliminado la pelicula correctamente");
 		return "redirect:/peliculas";
+		}else {
+			flash.addFlashAttribute("success", "Se ha eliminado la serie correctamente");	
+			return "redirect:/series";
+		}
+		
 	}
+	
+
+	
+	
+//	Map< String, String> errores = new HashMap<>();
+//	result.getFieldErrors().forEach(err-> {
+//		errores.put(err.getField(), "El campo".concat(err.getField().concat(" ").concat(err.getDefaultMessage())));
+//	});
+
+//	model.addAttribute("errores", errores);		
 
 }

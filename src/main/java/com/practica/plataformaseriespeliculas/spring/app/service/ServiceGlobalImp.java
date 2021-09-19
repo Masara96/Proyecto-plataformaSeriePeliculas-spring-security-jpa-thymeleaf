@@ -26,7 +26,7 @@ public class ServiceGlobalImp implements IService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Personaje> findByNombre(String term) {
-		return personajeDao.findByNombreLikeIgnoreCase(term);
+		return personajeDao.findByNombre(term);
 	}
 	
 	@Override

@@ -26,6 +26,26 @@
 						<div class="list-group-item" th:text="${personaje.peso} + ' Kg.'"></div>
 						<div class="list-group-item" th:text="${personaje.historia}"></div>
 					</div>
+					
+					<table class="table text-white my-5">
+					<thead>
+						<tr>
+							<th>Titulo</th>
+							<th>Calificacion</th>
+							<th>Sinopsis</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="pelicula : ${personaje.peliculaSerie}">
+							<td th:text="${pelicula.titulo}"></td>
+							<td th:text="${pelicula.calificacion}"></td>
+							<td th:text="${pelicula.sinopsis}"></td>
+						</tr>
+					</tbody>
+
+
+				</table>
 				</div>
 			
 		</div>

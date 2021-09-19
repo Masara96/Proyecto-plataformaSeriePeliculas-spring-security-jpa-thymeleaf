@@ -151,7 +151,7 @@ public class PersonajeController {
 		
 		model.addAttribute("titulo", "Detalle Personaje");
 		model.addAttribute("personaje", personaje);
-		return "personaje/ver";
+		return "personaje/verOtro";
 	}
 
 	@GetMapping("/personaje/eliminar/{id}")

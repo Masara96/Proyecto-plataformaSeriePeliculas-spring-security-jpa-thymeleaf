@@ -13,19 +13,52 @@
 			<div class="card-body ">
 
 				<img th:if="${#strings.isEmpty(trabajo.imagen) != true }"
-					class="img-thumbnail rounded float-left" style="max-width: 25%; height: 150px"
+					class="img-thumbnail rounded float-left my-2 mx-2"
+					style="max-width: 30%; height: 200px"
 					th:src="@{'/upload/'+${trabajo.imagen}}" th:alt="${trabajo.imagen}" />
 
-				<div class="list-group px-3">
-					<div class="list-group-item active " th:text="${trabajo.titulo}"></div>
-					<div class="list-group-item list-group-item-secondary "
-						th:text="'Calificacion : ' + ${trabajo.calificacion}"></div>
-					<div class="list-group-item " th:text="'Tipo : ' +${trabajo.tipo}"></div>
-					<div class="list-group-item list-group-item-secondary "
-						th:text="'Fecha: ' + ${trabajo.createAt}"></div>
-						<div class="list-group-item "
-						th:text="'Sinopsis : '+ ${trabajo.sinopsis}"></div>
+				<ul class="list-group my-2">
+					<li class="list-group-item list-group-item-primary"
+						th:text=${title}></li>
+					<li class="list-group-item"
+						th:text="'Titulo : ' + ${trabajo.titulo}"></li>
+					<li class="list-group-item"
+						th:text="'Calificacion : ' + ${trabajo.calificacion}"></li>
+					<li class="list-group-item" th:text="'Tipo : ' + ${trabajo.tipo}"></li>
+					<li class="list-group-item"
+						th:text="'Fecha de Creacion : ' + ${trabajo.createAt}"></li>
+				</ul>
+
+				<div>
+
+					<blockquote class="blockquote text-dark border border-white bg-white py-5 mx-1">
+						<p th:text="${trabajo.sinopsis}"></p>
+					</blockquote>
+
 				</div>
+
+
+				<table class="table text-white my-5">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Edad</th>
+							<th>Historia</th>
+							<th>Detalle</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="personaje : ${trabajo.personajes}">
+							<td th:text="${personaje.nombre}"></td>
+							<td th:text="${personaje.edad}"></td>
+							<td th:text="${personaje.historia}"></td>
+							<td><a class="btn btn-primary" th:href="@{/personaje/ver/}+${personaje.id}">Detalle</a></td>
+						</tr>
+					</tbody>
+
+
+				</table>
+
 			</div>
 
 			<div class="container mx-3 py-3"
