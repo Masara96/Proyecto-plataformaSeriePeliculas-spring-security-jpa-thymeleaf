@@ -132,7 +132,7 @@ public class PersonajeController {
 		}
 
 		model.addAttribute("titulo", "Modificacion del personaje");
-		model.addAttribute("boton", "Modificar personaje");
+		model.addAttribute("boton", "Modificar");
 		model.addAttribute("personaje", personaje);
 
 		return "personaje/form";
@@ -151,7 +151,7 @@ public class PersonajeController {
 		
 		model.addAttribute("titulo", "Detalle Personaje");
 		model.addAttribute("personaje", personaje);
-		return "personaje/verOtro";
+		return "personaje/ver";
 	}
 
 	@GetMapping("/personaje/eliminar/{id}")

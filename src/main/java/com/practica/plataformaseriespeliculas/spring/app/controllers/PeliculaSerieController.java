@@ -46,17 +46,13 @@ public class PeliculaSerieController {
 	@Autowired
 	private IUpdateService updateService;
    
-
-	
 	@GetMapping(value = "/peliculas")
 	public String listarPeliculas(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
         
 		Pageable pageRequest = PageRequest.of(page, 4);
-		
 		Page<PeliculaSerie> peliculas = serviceDao.findPeliculaAll(pageRequest);
-       
 		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("peliculas", peliculas);
-		
+
 		model.addAttribute("title", "Listado de Peliculas");
 		model.addAttribute("peliculas", peliculas);
 		model.addAttribute("page",pageRender);
@@ -67,9 +63,7 @@ public class PeliculaSerieController {
 	public String listarSerie(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
 
         Pageable pageRequest = PageRequest.of(page, 4);
-		
 		Page<PeliculaSerie> series = serviceDao.findSerieAll(pageRequest);
-       
 		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("series", series);
 
 		model.addAttribute("title", "Listado de Serie");
@@ -88,7 +82,6 @@ public class PeliculaSerieController {
 	public String crearPelicula(Model model) {
 
 		PeliculaSerie pelicula = new PeliculaSerie("PELICULA");
-		
 
 		log.info("Fecha : " + pelicula.getCreateAt());
 		log.info("Nombre pelicula : " + pelicula.getTitulo());
@@ -121,8 +114,6 @@ public class PeliculaSerieController {
 	public String guardar(@Valid @ModelAttribute("trabajo") PeliculaSerie trabajo, BindingResult result, Model model,
 			@RequestParam(name = "item_id[]", required = false) Long[] itemId,
 			RedirectAttributes flash, @RequestParam("file") MultipartFile imagen, SessionStatus status) {
-
-
 
 		if (result.hasErrors()) {
 			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
@@ -219,7 +210,7 @@ public class PeliculaSerieController {
 			} else model.addAttribute("title", "Detalle Serie");
 		
 		model.addAttribute("trabajo", peliculaSerie);
-		return "pelicula-serie/ver";
+		return "pelicula-serie/verOtro";
 	}
 
 	@GetMapping("/pelicula-serie/eliminar/{id}")
@@ -249,10 +240,7 @@ public class PeliculaSerieController {
 		}
 		
 	}
-	
 
-	
-	
 //	Map< String, String> errores = new HashMap<>();
 //	result.getFieldErrors().forEach(err-> {
 //		errores.put(err.getField(), "El campo".concat(err.getField().concat(" ").concat(err.getDefaultMessage())));

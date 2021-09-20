@@ -14,10 +14,10 @@
 			</div>
 
 			<div class="card-body">
-                    <a th:if="${peliculas !=null}" class="btn btn-warning text-dark my-1" th:href="@{/pelicula/form}" th:text="'Crear Pelicula'"></a>
+                    <a th:if="${peliculas != null}" class="btn btn-warning text-dark my-1" th:href="@{/pelicula/form}" th:text="'Crear Pelicula'"></a>
 			 	    <a th:if="${series !=null}" class="btn btn-warning text-dark my-1" th:href="@{/serie/form}" th:text="'Crear Serie'"></a>
 					
-					<table class="table table-dark table-striped" th:if="${#lists.isEmpty(peliculas) == false || #lists.isEmpty(series) == false  }">
+					<table class="table table-dark table-striped">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -49,9 +49,8 @@
 						</tbody>
 					</table>
 
-				<div class="alert alert-success" th:if="${#lists.isEmpty(peliculas) && #lists.isEmpty(series) }"
-					th:text="'No se encuentras registros guardados de peliculas en la BD.'" ></div>
-			   </div>
+		         <!-- Falta hacer un cartel cuando no tenga ningun registro para avisar -->
+			   
 			      <div class="container col-sm-4">
 			     <nav th:replace="personaje/paginator-nav :: paginator" ></nav>
 			   </div>  

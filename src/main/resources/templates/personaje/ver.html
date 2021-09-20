@@ -1,56 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
-</head>
-<body>
-
-	<header th:replace="layout/layout :: header"></header>
-
-	<div class="container py-4 col-sm-5  ">
-		<div class="card bg-dark " style="width: 48rem;">
-
-				<h5 class="card-header text-white" th:text="${titulo}"></h5>
-				<div class="card-body ">
-				
-				<img th:if="${#strings.isEmpty(personaje.imagen) != true }"
-					class="img-thumbnail rounded float-left" style="max-width: 25%;"
-					th:src="@{'/upload/'+${personaje.imagen}}" th:alt="${personaje.imagen}" />
-				    
-				    
-				    
-				    
-					<div class="list-group px-2">
-					    
-						<div class="list-group-item active" th:text="${personaje.nombre}"></div>
-						<div class="list-group-item" th:text="${personaje.edad} + ' de edad.'"></div>
-						<div class="list-group-item" th:text="${personaje.peso} + ' Kg.'"></div>
-						<div class="list-group-item" th:text="${personaje.historia}"></div>
-					</div>
-					
-					<table class="table text-white my-5">
-					<thead>
-						<tr>
-							<th>Titulo</th>
-							<th>Calificacion</th>
-							<th>Sinopsis</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="pelicula : ${personaje.peliculaSerie}">
-							<td th:text="${pelicula.titulo}"></td>
-							<td th:text="${pelicula.calificacion}"></td>
-							<td th:text="${pelicula.sinopsis}"></td>
-						</tr>
-					</tbody>
-
-
-				</table>
-				</div>
-			
-		</div>
-	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
-
-</body>
+    <head th:replace="layout/layout :: head">
+    </head>
+    <body>
+         <header th:replace="layout/layout :: header"></header>
+          
+        <!-- Product section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/upload/'+ ${personaje.imagen}}" th:alt="${personaje.imagen}" /></div>
+                    <div class="col-md-6">
+                        <div class="small mb-1" th:text="'Personaje'" ></div>
+                        <h1 class="display-5 fw-bolder" th:text="${personaje.nombre}"></h1>
+                        <div class="fs-5 mb-2">
+                            <span class="text-decoration" th:text="'Edad : ' + ${personaje.edad}"></span> 
+                        </div>
+                        <div class="fs-5 mb-3">
+                         <span class="text-decoration" th:text="'Peso : ' + ${personaje.peso}"></span>
+                        </div>
+                        <p class="lead" th:text="${personaje.historia}"></p>
+                        <div class="d-flex">
+                            <div><a class="btn btn-warning flex-shrink-0" th:href="@{/personajes}" th:text="'Volver'"></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer th:replace="layout/layout :: footer"></footer>
+    </body>
 </html>
