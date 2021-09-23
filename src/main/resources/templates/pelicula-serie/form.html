@@ -89,14 +89,21 @@
                             <td class="d-none">
            						<input type="hidden"  th:value="${personaje.id}" name="form_id[]"  />
           					</td> 
+          					 <td class="d-none">
+           						<input type="hidden"  th:value="${trabajo.id}" name="trabajo_id"  />
+          					</td> 
                             <td th:text="${personaje.nombre}"></td>
                             <td th:text="${personaje.edad}"></td>
                             <td th:text="${personaje.historia}" ></td>
-                            <td><a class="btn btn-danger btn-sm text-white" onclick="itemsHelper.eliminar();">X</a></td>
+<!--                             <td><a class="btn btn-danger btn-sm text-white"   -->
+<!--                             th:href="@{'/pelicula-serie/personaje/eliminar/'+ ${trabajo.id} +'/'+ ${personaje.id}} " -->
+<!--                             >X</a></td> -->
+							<td><a class="btn btn-danger btn-sm text-white" 
+							onclick="itemsHelper.deleteById();">X</a></td>
                           </tr>
                       </tbody>
                     </table>
-                    
+                    <span id="hola"></span>
 					<div class="form-group row py-2">
 						<div class="col-sm-3">
 							<button type="submit" class="btn btn-primary" th:text="${boton}"></button>

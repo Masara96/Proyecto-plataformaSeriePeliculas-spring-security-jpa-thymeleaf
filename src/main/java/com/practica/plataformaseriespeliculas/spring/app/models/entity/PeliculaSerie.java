@@ -80,6 +80,11 @@ public class PeliculaSerie implements Serializable {
 	
 	}
 	
+	public void eliminarPersonaje(Personaje personajeBuscado) {
+	         this.personajes.remove(personajeBuscado);        
+	}
+	
+	
 	public void setPersonaje(Personaje personaje) {
 		this.personajes.add(personaje);
 	}

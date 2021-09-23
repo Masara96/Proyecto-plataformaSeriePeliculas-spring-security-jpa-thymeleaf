@@ -87,14 +87,28 @@
 					return exist;
 				},
 				
-				eliminar: function(){
+				deleteById : function(){
 					
-					var ss = $('input[name="form_id[]"]').val();
-					console.log(ss);
-					$("#row_" + ss).remove();
-				}
-				
-	        
+					var idPersonaje = $('input[name="form_id[]"]').val();
+					
+					var idPeliculaSerie = $('input[name="trabajo_id"]').val();
+	
+						$.ajax({
+							url : "/pelicula-serie/personaje/eliminar",
+							dataType: 'json',
+							data : {
+								'idpersonaje': idPersonaje,
+								'idPeliculaSerie': idPeliculaSerie
+							},
+						success : function(data) {
+							if(data.flag){
+								location.reload();
+							}
+							
+						},	   
+						});
+				},
+			
      }
     
     </script>

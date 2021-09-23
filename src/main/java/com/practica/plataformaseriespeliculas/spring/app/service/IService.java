@@ -35,6 +35,7 @@ public interface IService {
 	
 	public Page<PeliculaSerie> findPeliculaAll(Pageable pageable);
 	
+
 	//-----------------------------------------------------------------
 	
 	public List<PeliculaSerie> findPeliculaAll();

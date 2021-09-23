@@ -1,8 +1,9 @@
 package com.practica.plataformaseriespeliculas.spring.app.controllers;
 
 import java.io.IOException;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -222,7 +223,7 @@ public class PeliculaSerieController {
 
 		if (peliculaSerie == null) {
 			flash.addFlashAttribute("error", "No se encuenta el registro en la BD");
-			return "redirect:/index";
+			return "redirect:/";
 		}
 
 		serviceDao.deletePeliculaSerie(id);
@@ -242,6 +243,42 @@ public class PeliculaSerieController {
 		}
 		
 	}
+	
+	
+	@RequestMapping(value = "/pelicula-serie/personaje/eliminar")
+	@ResponseBody
+	public Map<String, Object> eliminarPersonaje(String idpersonaje
+			, String idPeliculaSerie) {
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		log.info("Id persona : " + idpersonaje);
+		log.info("id pelicula-serie : " + idPeliculaSerie);
+		
+		Personaje personaje = serviceDao.findPersonajesById(Long.parseLong(idpersonaje));
+		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(Long.parseLong(idPeliculaSerie));
+		
+		if (peliculaSerie == null || personaje == null ) {
+		    result.put("error", "No se ha podido recuperar");
+			return result;
+		}
+	     
+		peliculaSerie.eliminarPersonaje(personaje);
+		serviceDao.savePeliculaSerie(peliculaSerie);
+
+//		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA") ) { 
+//			model.addAttribute("title", "Modificar Pelicula");
+//			} else model.addAttribute("title", "Modificar Serie");
+//			
+//			model.addAttribute("boton", "Modificar");
+//			model.addAttribute("trabajo", peliculaSerie);
+		
+		
+		result.put("flag", true);
+	
+		return result; 
+	}
+	
 
 //	Map< String, String> errores = new HashMap<>();
 //	result.getFieldErrors().forEach(err-> {
