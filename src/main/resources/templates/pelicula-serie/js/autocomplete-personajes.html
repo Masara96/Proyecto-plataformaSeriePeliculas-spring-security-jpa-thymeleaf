@@ -3,9 +3,9 @@
 <body>
 
 	<script type="text/javascript" th:fragment="javascript">
-         
+	
 	$(document).ready(function() {
-
+          
 		$("#buscar_personaje").autocomplete({
 
 			source : function(request, response) {
@@ -15,7 +15,7 @@
 					data : {
 						term : request.term
 					},
-					success : function(data) {
+			 success : function(data) {
 						response($.map(data, function(item) {
 							return {
 								value : item.id,
@@ -30,7 +30,7 @@
     	
     	select : function(event, ui){
     		
-    	if(itemsHelper.hasPersonaje(ui.item.value)){
+    	if(itemsHelper.hasPersonaje(ui.item.value) || itemsHelper.existPersonaje(ui.item.value) ){
     		return false;
     	}
     		 
@@ -73,6 +73,25 @@
 					});
 					
 					return resultado;
+				},
+				
+				existPersonaje: function(id){
+					var exist = false;
+					 
+					$('input[name="form_id[]"]').each(function(){
+						
+						if(parseInt(id) == parseInt($(this).val()) ){
+							exist = true;
+						}
+					});
+					return exist;
+				},
+				
+				eliminar: function(){
+					
+					var ss = $('input[name="form_id[]"]').val();
+					console.log(ss);
+					$("#row_" + ss).remove();
 				}
 				
 	        

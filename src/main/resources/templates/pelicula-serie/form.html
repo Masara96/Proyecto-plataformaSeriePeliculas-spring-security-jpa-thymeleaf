@@ -85,6 +85,15 @@
                         </tr>
                       </thead>
                       <tbody>
+                          <tr  th:each="personaje : ${trabajo.personajes}" class="text-white bg-secondary" id="row_{ID}">
+                            <td class="d-none">
+           						<input type="hidden"  th:value="${personaje.id}" name="form_id[]"  />
+          					</td> 
+                            <td th:text="${personaje.nombre}"></td>
+                            <td th:text="${personaje.edad}"></td>
+                            <td th:text="${personaje.historia}" ></td>
+                            <td><a class="btn btn-danger btn-sm text-white" onclick="itemsHelper.eliminar();">X</a></td>
+                          </tr>
                       </tbody>
                     </table>
                     

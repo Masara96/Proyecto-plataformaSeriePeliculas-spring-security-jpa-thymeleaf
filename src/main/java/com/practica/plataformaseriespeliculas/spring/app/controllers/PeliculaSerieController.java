@@ -126,18 +126,18 @@ public class PeliculaSerieController {
 			return "pelicula-serie/form";
 		}
 		
-		if(itemId == null || itemId.length == 0 ) {
-			
-			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
-				model.addAttribute("title", "Crear Pelicula");
-				model.addAttribute("boton", "Crear Pelicula");
-			} else {
-				model.addAttribute("title", "Crear Serie");
-				model.addAttribute("boton", "Crear Serie");
-			}
-			model.addAttribute("error","ERROR: La pelicula No puede no tener personajes!" );
-			return "pelicula-serie/form";
-		}
+//		if(itemId == null || itemId.length == 0 ) {
+//			
+//			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
+//				model.addAttribute("title", "Crear Pelicula");
+//				model.addAttribute("boton", "Crear Pelicula");
+//			} else {
+//				model.addAttribute("title", "Crear Serie");
+//				model.addAttribute("boton", "Crear Serie");
+//			}
+//			model.addAttribute("error","ERROR: La pelicula No puede no tener personajes!" );
+//			return "pelicula-serie/form";
+//		}
 
 		if (!imagen.isEmpty()) {
 
@@ -157,14 +157,16 @@ public class PeliculaSerieController {
 			trabajo.setImagen(uniqueFilename);
 		}
 		
-		log.info("Cantidad de items = " + itemId.length);
+//		log.info("Cantidad de items = " + itemId.length);
          
+		if (itemId != null ) { 
 		for (int i = 0; i < itemId.length; i++) {
 		    Personaje personaje = serviceDao.findPersonajesById(itemId[i]);
 			trabajo.setPersonaje(personaje);
 		}
+		}
            
-		log.info("Cantidad de personajes dentro de Pelicula o Serie : " + trabajo.getPersonajes().size());
+		//log.info("Cantidad de personajes dentro de Pelicula o Serie : " + trabajo.getPersonajes().size());
 		serviceDao.savePeliculaSerie(trabajo);
 		
 		flash.addFlashAttribute("success", "Se ha guardado el registro correctamente!");
@@ -210,7 +212,7 @@ public class PeliculaSerieController {
 			} else model.addAttribute("title", "Detalle Serie");
 		
 		model.addAttribute("trabajo", peliculaSerie);
-		return "pelicula-serie/verOtro";
+		return "pelicula-serie/ver";
 	}
 
 	@GetMapping("/pelicula-serie/eliminar/{id}")

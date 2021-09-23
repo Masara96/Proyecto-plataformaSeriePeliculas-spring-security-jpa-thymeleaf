@@ -1,80 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
-</head>
-<body>
-
-	<header th:replace="layout/layout :: header"></header>
-
-	<div class="container py-4 col-sm-5  ">
-		<div class="card bg-dark " style="width: 48rem;">
-
-			<h5 class="card-header text-white" th:text="${title}"></h5>
-			<div class="card-body ">
-
-				<img th:if="${#strings.isEmpty(trabajo.imagen) != true }"
-					class="img-thumbnail rounded float-left my-2 mx-2"
-					style="max-width: 30%; height: 200px"
-					th:src="@{'/upload/'+${trabajo.imagen}}" th:alt="${trabajo.imagen}" />
-
-				<ul class="list-group my-2">
-					<li class="list-group-item list-group-item-primary"
-						th:text=${title}></li>
-					<li class="list-group-item"
-						th:text="'Titulo : ' + ${trabajo.titulo}"></li>
-					<li class="list-group-item"
-						th:text="'Calificacion : ' + ${trabajo.calificacion}"></li>
-					<li class="list-group-item" th:text="'Tipo : ' + ${trabajo.tipo}"></li>
-					<li class="list-group-item"
-						th:text="'Fecha de Creacion : ' + ${trabajo.createAt}"></li>
-				</ul>
-
-				<div>
-
-					<blockquote class="blockquote text-dark border border-white bg-white py-5 mx-1">
-						<p th:text="${trabajo.sinopsis}"></p>
-					</blockquote>
-
-				</div>
-
-
-				<table class="table text-white my-5">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Edad</th>
-							<th>Historia</th>
-							<th>Detalle</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="personaje : ${trabajo.personajes}">
-							<td th:text="${personaje.nombre}"></td>
-							<td th:text="${personaje.edad}"></td>
-							<td th:text="${personaje.historia}"></td>
-							<td><a class="btn btn-primary" th:href="@{/personaje/ver/}+${personaje.id}">Detalle</a></td>
-						</tr>
-					</tbody>
-
-
-				</table>
-
-			</div>
-
-			<div class="container mx-3 py-3"
-				th:if="${trabajo.tipo == 'PELICULA'}">
-				<label><a class="btn btn-primary text-white"
-					th:text="Volver" th:href="@{/peliculas}"></a></label>
-			</div>
-
-			<div class="container mx-3 py-3" th:if="${trabajo.tipo == 'SERIE'}">
-				<label><a class="btn btn-primary text-white"
-					th:text="Volver" th:href="@{/series}"></a></label>
-			</div>
-
-		</div>
-	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
-
-</body>
+    <head th:replace="layout/layout :: head">
+    </head>
+    <body>
+         
+         <header th:replace="layout/layout :: header"></header>
+            
+        <!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-4"><img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/upload/}+${trabajo.imagen}" th:alt="${trabajo.imagen}" /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light" th:text="${trabajo.titulo}"></h1>
+                    <p th:text="${trabajo.sinopsis}"></p>
+                    <a class="btn btn-warning" href="#!" th:text="Volver"></a>
+                </div>
+            </div>
+            <!-- Call to Action-->
+            <div class="card text-white bg-secondary my-5 py-4 text-center">
+                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+            </div>
+            <!-- Content Row-->
+            <div class="row gx-4 gx-lg-5">
+                <div class="col-md-4 mb-5" th:each="personaje : ${trabajo.personajes}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div><img class="img-thumbnail rounded float-start mx-4" th:alt="${personaje.imagen}" th:src="@{'/upload/'} + ${personaje.imagen}" style="width:300px; height:200px;"></div> 
+                            <h2 class="card-title text-center" th:text="${personaje.nombre}"></h2>
+                            <p class="card-text" th:text="${personaje.historia}"></p>
+                        </div>
+                        <div class="card-footer"><a class="btn btn-warning " th:href="@{'/personaje/ver/'}+${personaje.id}">Detalles</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+       <footer th:replace="layout/layout :: footer"></footer>
+    </body>
 </html>
