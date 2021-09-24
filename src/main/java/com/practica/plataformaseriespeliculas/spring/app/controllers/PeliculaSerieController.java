@@ -50,6 +50,7 @@ public class PeliculaSerieController {
 	@GetMapping(value = "/peliculas")
 	public String listarPeliculas(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
         
+		int cantidad = serviceDao.findPeliculaAll().size(); 
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<PeliculaSerie> peliculas = serviceDao.findPeliculaAll(pageRequest);
 		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("peliculas", peliculas);
@@ -57,6 +58,7 @@ public class PeliculaSerieController {
 		model.addAttribute("title", "Listado de Peliculas");
 		model.addAttribute("peliculas", peliculas);
 		model.addAttribute("page",pageRender);
+		model.addAttribute("size", cantidad );
 		return "pelicula-serie/listar";
 	}
 
@@ -70,7 +72,7 @@ public class PeliculaSerieController {
 		model.addAttribute("title", "Listado de Serie");
 		model.addAttribute("series", series);
 		model.addAttribute("page",pageRender);
-
+        model.addAttribute("tipo", "serie");
 		return "pelicula-serie/listar";
 	}
 	
@@ -265,15 +267,7 @@ public class PeliculaSerieController {
 	     
 		peliculaSerie.eliminarPersonaje(personaje);
 		serviceDao.savePeliculaSerie(peliculaSerie);
-
-//		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA") ) { 
-//			model.addAttribute("title", "Modificar Pelicula");
-//			} else model.addAttribute("title", "Modificar Serie");
-//			
-//			model.addAttribute("boton", "Modificar");
-//			model.addAttribute("trabajo", peliculaSerie);
-		
-		
+	
 		result.put("flag", true);
 	
 		return result; 

@@ -103,6 +103,8 @@
 						success : function(data) {
 							if(data.flag){
 								location.reload();
+							}else {
+								alert(data.error);
 							}
 							
 						},	   
