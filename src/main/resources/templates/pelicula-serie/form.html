@@ -50,7 +50,7 @@
 							th:text="'Sinopsis'"></label>
 						<div class="col-sm-8">
 							<textarea class="form-control" th:field="*{sinopsis}"
-								maxlength="120"></textarea>
+								maxlength="1500"></textarea>
 							<small class="form-text text-danger"
 								th:if="${#fields.hasErrors('sinopsis')}" th:errors="*{sinopsis}"></small>
 						</div>

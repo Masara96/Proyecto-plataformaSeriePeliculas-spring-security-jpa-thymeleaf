@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+	<main>
+		<div class="container-fluid px-4">
+			<h1 class="mt-5 px-3 my-4 text-center text-warning">Listado de Personajes</h1>
+            
+			<div class=" row gy-2 mx-2">
+				<div class="col-xl-3 col-md-6" th:each="peliculaSerie : ${trabajo}">
+					<div class="card bg-warning text-dark mb-4">
+						<div class="card-body text-center" th:text="${peliculaSerie.nombre}"></div>
+						 <img th:alt="${peliculaSerie}" th:src="@{'/upload/'+ ${peliculaSerie.imagen}}" class=" float-start  "
+								style="width:405px; height:200px;">
+						<div
+							class="card-footer d-flex align-items-center justify-content-between ">
+							<a class="btn btn-warning text-dark border border-dark "  th:href="@{'/personaje/ver/'+${peliculaSerie.id}}">Detalles
+								Personaje</a>
+							<div class="small text-white">
+								<i class="fas fa-angle-right"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

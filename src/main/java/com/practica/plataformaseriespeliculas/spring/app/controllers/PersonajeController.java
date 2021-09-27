@@ -2,7 +2,7 @@ package com.practica.plataformaseriespeliculas.spring.app.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -139,6 +139,23 @@ public class PersonajeController {
 
 	}
 
+	@GetMapping(value = "/personajes/mosaico")
+	public String mosaico(Model model,RedirectAttributes flash) {
+		List<Personaje> personaje = serviceDao.findPersonajesAll();
+		
+		if(personaje == null) {
+			flash.addFlashAttribute("error", "No se encuenta registros de en la Base de Datos");
+			return "redirect:/";
+		}
+		
+		model.addAttribute("title","Listado Personaje");
+		model.addAttribute("trabajo", personaje);
+		
+		return "personaje/mosaico";
+	}
+	
+	
+	
 	@GetMapping("/personaje/ver/{id}")
 	public String ver(@PathVariable(name = "id") Long id,Model model,RedirectAttributes flash) {
         

@@ -48,7 +48,7 @@ public class PeliculaSerie implements Serializable {
 	private int calificacion = 1;
     
 	@NotEmpty
-	@Size(max = 120)
+	@Size(max = 1500)
 	private String sinopsis;
 	
 	@NotEmpty

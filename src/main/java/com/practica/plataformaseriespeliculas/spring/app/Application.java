@@ -5,8 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
-import com.practica.plataformaseriespeliculas.spring.app.service.IService;
 import com.practica.plataformaseriespeliculas.spring.app.service.IUpdateService;
 
 @SpringBootApplication
@@ -22,11 +20,10 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		updateService.deleteAll();
+		//updateService.deleteAll();
 		updateService.init();
 		
-
-		
+	
 	}
 
 }

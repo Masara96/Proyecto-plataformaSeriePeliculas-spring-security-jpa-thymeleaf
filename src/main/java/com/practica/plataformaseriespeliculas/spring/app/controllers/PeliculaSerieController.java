@@ -46,36 +46,60 @@ public class PeliculaSerieController {
 
 	@Autowired
 	private IUpdateService updateService;
-   
+ 
+	
+	@GetMapping(value = "/pelicula-serie/mosaico")
+	public String mosaico(Model model,RedirectAttributes flash) {
+		List<Personaje> peliculaSerie = serviceDao.findPersonajesAll();
+		
+		if(peliculaSerie == null) {
+			flash.addFlashAttribute("error", "No se encuenta registros de en la Base de Datos");
+			return "redirect:/";
+		}
+		
+		model.addAttribute("title","Mosaico ");
+		model.addAttribute("trabajo", peliculaSerie);
+		
+		return "pelicula-serie/mosaico";
+	}
+	
+	
+	
 	@GetMapping(value = "/peliculas")
-	public String listarPeliculas(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
-        
-		int cantidad = serviceDao.findPeliculaAll().size(); 
+	public String listarPeliculas(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+
+		List<PeliculaSerie> peliSerie = serviceDao.findPeliculaAll();
+
 		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<PeliculaSerie> peliculas = serviceDao.findPeliculaAll(pageRequest);
 		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("peliculas", peliculas);
 
 		model.addAttribute("title", "Listado de Peliculas");
 		model.addAttribute("peliculas", peliculas);
-		model.addAttribute("page",pageRender);
-		model.addAttribute("size", cantidad );
+		model.addAttribute("page", pageRender);
+
+		model.addAttribute("sizePelicula", peliSerie);
 		return "pelicula-serie/listar";
 	}
 
 	@GetMapping(value = "/series")
-	public String listarSerie(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
+	public String listarSerie(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-        Pageable pageRequest = PageRequest.of(page, 4);
+		List<PeliculaSerie> peliSerie = serviceDao.findSerieAll();
+
+		Pageable pageRequest = PageRequest.of(page, 4);
 		Page<PeliculaSerie> series = serviceDao.findSerieAll(pageRequest);
 		PageRender<PeliculaSerie> pageRender = new PageRender<PeliculaSerie>("series", series);
 
 		model.addAttribute("title", "Listado de Serie");
 		model.addAttribute("series", series);
-		model.addAttribute("page",pageRender);
-        model.addAttribute("tipo", "serie");
+		model.addAttribute("page", pageRender);
+
+		model.addAttribute("sizeSerie", peliSerie);
+
 		return "pelicula-serie/listar";
 	}
-	
+
 	@GetMapping(value = "/cargar-personaje/{term}", produces = { "application/json" })
 	public @ResponseBody List<Personaje> cargarProductos(@PathVariable String term) {
 		return serviceDao.findByNombre(term);
@@ -86,11 +110,8 @@ public class PeliculaSerieController {
 
 		PeliculaSerie pelicula = new PeliculaSerie("PELICULA");
 
-		log.info("Fecha : " + pelicula.getCreateAt());
-		log.info("Nombre pelicula : " + pelicula.getTitulo());
-		log.info("Tipo : " + pelicula.getTipo());
-
 		model.addAttribute("trabajo", pelicula);
+
 		model.addAttribute("title", "Crear Pelicula");
 		model.addAttribute("boton", "Crear Pelicula");
 
@@ -102,10 +123,6 @@ public class PeliculaSerieController {
 
 		PeliculaSerie serie = new PeliculaSerie("SERIE");
 
-		log.info("Fecha : " + serie.getCreateAt());
-		log.info("Nombre pelicula : " + serie.getTitulo());
-		log.info("Tipo : " + serie.getTipo());
-
 		model.addAttribute("trabajo", serie);
 		model.addAttribute("title", "Crear Serie");
 		model.addAttribute("boton", "Crear Serie");
@@ -115,8 +132,8 @@ public class PeliculaSerieController {
 
 	@PostMapping("/pelicula-serie/form")
 	public String guardar(@Valid @ModelAttribute("trabajo") PeliculaSerie trabajo, BindingResult result, Model model,
-			@RequestParam(name = "item_id[]", required = false) Long[] itemId,
-			RedirectAttributes flash, @RequestParam("file") MultipartFile imagen, SessionStatus status) {
+			@RequestParam(name = "item_id[]", required = false) Long[] itemId, RedirectAttributes flash,
+			@RequestParam("file") MultipartFile imagen, SessionStatus status) {
 
 		if (result.hasErrors()) {
 			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
@@ -128,7 +145,7 @@ public class PeliculaSerieController {
 			}
 			return "pelicula-serie/form";
 		}
-		
+
 //		if(itemId == null || itemId.length == 0 ) {
 //			
 //			if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
@@ -159,26 +176,24 @@ public class PeliculaSerieController {
 			flash.addFlashAttribute("info", "Se ha subido la imagen con exito '" + uniqueFilename + "' correctamente.");
 			trabajo.setImagen(uniqueFilename);
 		}
-		
-//		log.info("Cantidad de items = " + itemId.length);
-         
-		if (itemId != null ) { 
-		for (int i = 0; i < itemId.length; i++) {
-		    Personaje personaje = serviceDao.findPersonajesById(itemId[i]);
-			trabajo.setPersonaje(personaje);
+
+		if (itemId != null) {
+			for (int i = 0; i < itemId.length; i++) {
+				Personaje personaje = serviceDao.findPersonajesById(itemId[i]);
+				trabajo.setPersonaje(personaje);
+			}
 		}
-		}
-           
-		//log.info("Cantidad de personajes dentro de Pelicula o Serie : " + trabajo.getPersonajes().size());
+
 		serviceDao.savePeliculaSerie(trabajo);
-		
+
 		flash.addFlashAttribute("success", "Se ha guardado el registro correctamente!");
 		status.setComplete();
-	
-		if(trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
-		  return "redirect:/peliculas";
-		}else return "redirect:/series";
-		
+
+		if (trabajo.getTipo().equalsIgnoreCase("PELICULA")) {
+			return "redirect:/peliculas";
+		} else
+			return "redirect:/series";
+
 	}
 
 	@RequestMapping(value = "/pelicula-serie/editar/{id}", method = RequestMethod.GET)
@@ -187,14 +202,15 @@ public class PeliculaSerieController {
 		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(id);
 
 		if (peliculaSerie == null) {
-			  flash.addFlashAttribute("error", "ERROR: No se ha encontrado en la Base de Datos");
-			  return "redirect:/";
+			flash.addFlashAttribute("error", "ERROR: No se ha encontrado en la Base de Datos");
+			return "redirect:/";
 		}
-		
-		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA") ) { 
-		model.addAttribute("title", "Modificar Pelicula");
-		} else model.addAttribute("title", "Modificar Serie");
-		
+
+		if (peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) {
+			model.addAttribute("title", "Modificar Pelicula");
+		} else
+			model.addAttribute("title", "Modificar Serie");
+
 		model.addAttribute("boton", "Modificar");
 		model.addAttribute("trabajo", peliculaSerie);
 		return "pelicula-serie/form";
@@ -202,18 +218,20 @@ public class PeliculaSerieController {
 
 	@GetMapping(value = "/pelicula-serie/ver/{id}")
 	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
-
+        
+	
 		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(id);
 
 		if (peliculaSerie == null) {
-			  flash.addFlashAttribute("error", "ERROR: No se ha encontrado en la Base de Datos");
-			  return "redirect:/";
+			flash.addFlashAttribute("error", "ERROR: No se ha encontrado en la Base de Datos");
+			return "redirect:/";
 		}
 
-		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) { 
+		if (peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) {
 			model.addAttribute("title", "Detalle Pelicula");
-			} else model.addAttribute("title", "Detalle Serie");
-		
+		} else
+			model.addAttribute("title", "Detalle Serie");
+
 		model.addAttribute("trabajo", peliculaSerie);
 		return "pelicula-serie/ver";
 	}
@@ -235,44 +253,38 @@ public class PeliculaSerieController {
 				log.info("Se ha eliminado la imagen '" + peliculaSerie.getImagen() + "' correctamente");
 			}
 		}
-        
-		if(peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) {
-		flash.addFlashAttribute("success", "Se ha eliminado la pelicula correctamente");
-		return "redirect:/peliculas";
-		}else {
-			flash.addFlashAttribute("success", "Se ha eliminado la serie correctamente");	
+
+		if (peliculaSerie.getTipo().equalsIgnoreCase("PELICULA")) {
+			flash.addFlashAttribute("success", "Se ha eliminado la pelicula correctamente");
+			return "redirect:/peliculas";
+		} else {
+			flash.addFlashAttribute("success", "Se ha eliminado la serie correctamente");
 			return "redirect:/series";
 		}
-		
+
 	}
-	
-	
+
 	@RequestMapping(value = "/pelicula-serie/personaje/eliminar")
 	@ResponseBody
-	public Map<String, Object> eliminarPersonaje(String idpersonaje
-			, String idPeliculaSerie) {
-		
+	public Map<String, Object> eliminarPersonaje(String idpersonaje, String idPeliculaSerie) {
+
 		Map<String, Object> result = new HashMap<>();
-		
-		log.info("Id persona : " + idpersonaje);
-		log.info("id pelicula-serie : " + idPeliculaSerie);
-		
+
 		Personaje personaje = serviceDao.findPersonajesById(Long.parseLong(idpersonaje));
 		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(Long.parseLong(idPeliculaSerie));
-		
-		if (peliculaSerie == null || personaje == null ) {
-		    result.put("error", "No se ha podido recuperar");
+
+		if (peliculaSerie == null || personaje == null) {
+			result.put("error", "No se ha podido recuperar");
 			return result;
 		}
-	     
+
 		peliculaSerie.eliminarPersonaje(personaje);
 		serviceDao.savePeliculaSerie(peliculaSerie);
-	
+
 		result.put("flag", true);
-	
-		return result; 
+
+		return result;
 	}
-	
 
 //	Map< String, String> errores = new HashMap<>();
 //	result.getFieldErrors().forEach(err-> {

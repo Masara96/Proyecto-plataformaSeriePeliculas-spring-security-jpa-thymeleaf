@@ -34,7 +34,7 @@ public class Personaje implements Serializable {
 	private Double peso;
 
 	@NotEmpty(message = "- Debe tener una historia.")
-	@Size(max = 1500)
+	@Size(max = 1000)
 	private String historia;
 
 	@ManyToMany(mappedBy = "personajes")
