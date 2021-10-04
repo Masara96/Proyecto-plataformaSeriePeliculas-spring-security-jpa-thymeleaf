@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.Personaje;
-import com.practica.plataformaseriespeliculas.spring.app.service.IService;
+import com.practica.plataformaseriespeliculas.spring.app.service.IServicePeliculaSerie;
+import com.practica.plataformaseriespeliculas.spring.app.service.IServicePersonaje;
 import com.practica.plataformaseriespeliculas.spring.app.service.IUpdateService;
 import com.practica.plataformaseriespeliculas.spring.app.util.paginator.PageRender;
 
@@ -42,29 +44,50 @@ public class PeliculaSerieController {
 	private static final Logger log = LoggerFactory.getLogger(PeliculaSerieController.class);
 
 	@Autowired
-	private IService serviceDao;
+	private IServicePeliculaSerie serviceDao;
+	
+	@Autowired
+	private IServicePersonaje servicePersonajeDao;
 
 	@Autowired
 	private IUpdateService updateService;
- 
-	
-	@GetMapping(value = "/pelicula-serie/mosaico")
-	public String mosaico(Model model,RedirectAttributes flash) {
-		List<Personaje> peliculaSerie = serviceDao.findPersonajesAll();
+
+	@GetMapping(value = "/pelicula/mosaico")
+	public String mosaicoPelicula(Model model,RedirectAttributes flash) {
+		
+		List<PeliculaSerie> peliculaSerie = serviceDao.findPeliculaAll();
 		
 		if(peliculaSerie == null) {
 			flash.addFlashAttribute("error", "No se encuenta registros de en la Base de Datos");
 			return "redirect:/";
 		}
 		
-		model.addAttribute("title","Mosaico ");
-		model.addAttribute("trabajo", peliculaSerie);
+		model.addAttribute("title","Listado de Peliculas");
+		model.addAttribute("trabajo",peliculaSerie);
+		model.addAttribute("tipo", "PELICULA");
+		
+		return "pelicula-serie/mosaico";
+	}
+	
+	@GetMapping(value = "/serie/mosaico")
+	public String mosaicoSerie(Model model,RedirectAttributes flash) {
+		
+		List<PeliculaSerie> peliculaSerie = serviceDao.findSerieAll();
+		
+		if(peliculaSerie == null) {
+			flash.addFlashAttribute("error", "No se encuenta registros de en la Base de Datos");
+			return "redirect:/";
+		}
+		
+		model.addAttribute("title","Listado de Series");
+		model.addAttribute("trabajo",peliculaSerie);
+		model.addAttribute("tipo", "SERIE");
 		
 		return "pelicula-serie/mosaico";
 	}
 	
 	
-	
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/peliculas")
 	public String listarPeliculas(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
@@ -82,6 +105,7 @@ public class PeliculaSerieController {
 		return "pelicula-serie/listar";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/series")
 	public String listarSerie(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
@@ -100,11 +124,13 @@ public class PeliculaSerieController {
 		return "pelicula-serie/listar";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/cargar-personaje/{term}", produces = { "application/json" })
 	public @ResponseBody List<Personaje> cargarProductos(@PathVariable String term) {
-		return serviceDao.findByNombre(term);
+		return servicePersonajeDao.findByNombre(term);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/pelicula/form")
 	public String crearPelicula(Model model) {
 
@@ -118,6 +144,7 @@ public class PeliculaSerieController {
 		return "pelicula-serie/form";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/serie/form")
 	public String crearSerie(Model model) {
 
@@ -130,6 +157,7 @@ public class PeliculaSerieController {
 		return "pelicula-serie/form";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/pelicula-serie/form")
 	public String guardar(@Valid @ModelAttribute("trabajo") PeliculaSerie trabajo, BindingResult result, Model model,
 			@RequestParam(name = "item_id[]", required = false) Long[] itemId, RedirectAttributes flash,
@@ -179,7 +207,7 @@ public class PeliculaSerieController {
 
 		if (itemId != null) {
 			for (int i = 0; i < itemId.length; i++) {
-				Personaje personaje = serviceDao.findPersonajesById(itemId[i]);
+				Personaje personaje = servicePersonajeDao.findPersonajesById(itemId[i]);
 				trabajo.setPersonaje(personaje);
 			}
 		}
@@ -196,6 +224,7 @@ public class PeliculaSerieController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/pelicula-serie/editar/{id}", method = RequestMethod.GET)
 	public String editar(@PathVariable Long id, Model model, RedirectAttributes flash) {
 
@@ -216,6 +245,7 @@ public class PeliculaSerieController {
 		return "pelicula-serie/form";
 	}
 
+	@Secured("ROLE_USER")
 	@GetMapping(value = "/pelicula-serie/ver/{id}")
 	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
         
@@ -236,6 +266,7 @@ public class PeliculaSerieController {
 		return "pelicula-serie/ver";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/pelicula-serie/eliminar/{id}")
 	public String eliminar(@PathVariable Long id, RedirectAttributes flash) {
 
@@ -264,13 +295,14 @@ public class PeliculaSerieController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/pelicula-serie/personaje/eliminar")
 	@ResponseBody
 	public Map<String, Object> eliminarPersonaje(String idpersonaje, String idPeliculaSerie) {
 
 		Map<String, Object> result = new HashMap<>();
 
-		Personaje personaje = serviceDao.findPersonajesById(Long.parseLong(idpersonaje));
+		Personaje personaje = servicePersonajeDao.findPersonajesById(Long.parseLong(idpersonaje));
 		PeliculaSerie peliculaSerie = serviceDao.findPeliculaSerieById(Long.parseLong(idPeliculaSerie));
 
 		if (peliculaSerie == null || personaje == null) {

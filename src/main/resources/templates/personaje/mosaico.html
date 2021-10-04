@@ -1,32 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 </head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 
 	<main>
-		<div class="container-fluid px-4">
-			<h1 class="mt-5 px-3 my-4 text-center text-warning">Listado de Personajes</h1>
-            
-			<div class=" row gy-2 mx-2">
-				<div class="col-xl-3 col-md-6" th:each="peliculaSerie : ${trabajo}">
-					<div class="card bg-warning text-dark mb-4">
-						<div class="card-body text-center" th:text="${peliculaSerie.nombre}"></div>
-						 <img th:alt="${peliculaSerie}" th:src="@{'/upload/'+ ${peliculaSerie.imagen}}" class=" float-start  "
-								style="width:405px; height:200px;">
-						<div
-							class="card-footer d-flex align-items-center justify-content-between ">
-							<a class="btn btn-warning text-dark border border-dark "  th:href="@{'/personaje/ver/'+${peliculaSerie.id}}">Detalles
-								Personaje</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
+		<article>
+
+
+
+			<!-- Section-->
+			<section class="py-5">
+
+				<div class="container overflow-hidden">
+					<div class="container-fluid px-1">
+						<div class="alert alert-secondary py-3" style="display: flex; justify-content: space-between;" role="alert">
+							<h3 th:text="${title}" class="my-2"></h3>
+							<a sec:authorize="hasRole('ADMIN')" th:href="@{/personajes}"> <img align="right"
+								class="bg-white border border-dark" alt="ListadoPersonajes"
+								th:src="@{/imagen/baseline_list_black_24dp.png}">
+							</a>
+							
 						</div>
+
 					</div>
+					<div class="row gy-2">
+						<div class="col-lg-3 py-1 d-flex align-items-stretch"
+							th:each="personaje : ${trabajo}">
+							<div th:if="${personaje.imagen != null}"
+								class="card p-3 border bg-light  "
+								style="width: 18rem; align-items: center;">
+								<img th:src="@{'/upload/'+${personaje.imagen}}"
+									th:alt="${personaje.imagen}"
+									class="img-thumbnail rounded float-start"
+									style="width: 300px; height: 200px;">
+								<div class="card-body ">
+									<h5 class="card-title text-secondary "
+										th:text="${personaje.nombre}"></h5>
+									<p class="card-text" th:text="${personaje.detalle}"></p>
+
+								</div>
+								<span><a class="btn btn-warning" th:text="'Visualizar'"
+									th:href="@{'/personaje/ver/'}+${personaje.id}"></a></span>
+							</div>
+
+						</div>
+
+					</div>
+
 				</div>
-			</div>
-		</div>
+			</section>
+		</article>
 	</main>
 
 

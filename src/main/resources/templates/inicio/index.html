@@ -14,30 +14,46 @@
 		</div>
 	</div>
 
-	<main >
+	<main>
 		<article>
-
-
-			<!-- Section-->
-			<section class="py-5">
-				<div class="container overflow-hidden">
-					<div class="row gy-2">
-						<div  class="col-lg-3 py-3 d-flex align-items-stretch" th:each="pelicula : ${peliculas}">
-							<div th:if="${pelicula.imagen != null}" class="card p-3 border bg-light  " style="width: 18rem; align-items: center;">
-								<img th:src="@{'/upload/'+${pelicula.imagen}}" th:alt="${pelicula.imagen}" class="img-thumbnail rounded float-start"
-								style="width:300px; height:200px;">
-								<div class="card-body ">
-									<h5 class="card-title text-secondary " th:text="${pelicula.titulo}"></h5>
-									<p class="card-text" th:text="${pelicula.sinopsis}"></p>
-									
-								</div>
-								<span><a class="btn btn-warning" th:text="'Visualizar'" th:href="@{'/pelicula-serie/ver/'}+${pelicula.id}"></a></span>
-							</div>
-							
+		<div class="container overflow-hidden my-5">
+					<div class="container-fluid px-1">
+						<div class="alert alert-secondary " role="alert" >
+						     <h3>Top Mas Visto</h3>
 						</div>
-						 
 					</div>
-                   
+					 <hr />
+
+					</div>
+					 
+			<!-- Section-->
+			<section >
+				<div class="container overflow-hidden ">
+					<div class="row gy-2">
+						<div class="col-lg-3 py-3 d-flex align-items-stretch "
+							th:each="pelicula : ${peliculas}">
+							<div th:if="${pelicula.imagen != null}"
+								class="card p-3 border bg-light  "
+								style="width: 18rem; align-items: center;">
+								<img th:src="@{'/upload/'+${pelicula.imagen}}"
+									th:alt="${pelicula.imagen}"
+									class="img-thumbnail rounded float-start"
+									style="width: 300px; height: 200px;">
+								<div class="card-body ">
+									<h5 class="card-title text-secondary text-center "
+										th:text="${pelicula.titulo}"></h5>
+									<p th:text="${pelicula.descripcion}"></p>
+
+								</div>
+								<span><a class="btn btn-warning text-white px-5"
+									th:text="'Visualizar'"
+									th:href="@{'/pelicula-serie/ver/'}+${pelicula.id}"></a></span>
+							</div>
+
+						</div>
+
+					</div>
+
 				</div>
 			</section>
 		</article>

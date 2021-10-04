@@ -6,23 +6,27 @@
 	<header th:replace="layout/layout :: header"></header>
  
 	<div class="container py-4">
-		<h3></h3>
+		
 		<div class="card bg-white text-white">
            
-			<div class="card-header text-warning">
+			<div class="card-header text-warning bg-white">
 				<h3 th:text="${title}"></h3>
 			
-				<a th:href="@{/pelicula-serie/mosaico}">
+				<a th:href="@{/pelicula/mosaico}"  th:if="${peliculas != null}" >
+				  <img align="right" class="bg-white border border-dark" alt="mosaico" th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
+				</a>
+				
+				<a th:href="@{/serie/mosaico}"  th:if="${series != null}" >
 				  <img align="right" class="bg-white border border-dark" alt="mosaico" th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
 				</a>
 				
 			</div>
 
-			<div class="card-body">
+			<div class="card-body" >
 				<a th:if="${peliculas != null}"
 					class="btn btn-warning text-white my-1" th:href="@{/pelicula/form}"
 					th:text="'Crear Pelicula'"></a> <a th:if="${series !=null}"
-					class="btn btn-warning text-dark my-1" th:href="@{/serie/form}"
+					class="btn btn-warning text-white my-1" th:href="@{/serie/form}"
 					th:text="'Crear Serie'"></a>
 
 				<table class="table table-white table-striped">

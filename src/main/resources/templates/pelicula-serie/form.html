@@ -45,6 +45,18 @@
 						</div>
 					</div>
 					
+						<div class="form-group row">
+						<label for="descripcion" class="col-sm-2 col-form-label"
+							th:text="'Descripcion'"></label>
+						<div class="col-sm-8">
+							<textarea class="form-control" th:field="*{descripcion}"
+								maxlength="120"></textarea>
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+						</div>
+					</div>
+					
+					
 					<div class="form-group row">
 						<label for="sinopsis" class="col-sm-2 col-form-label"
 							th:text="'Sinopsis'"></label>
@@ -80,7 +92,7 @@
                         <tr>
                           <th>Nombre</th>
                           <th>Edad</th>
-                          <th>Historial</th>
+                          <th>Descripcion</th>
                           <th>Eliminar</th>
                         </tr>
                       </thead>
@@ -94,7 +106,7 @@
           					</td> 
                             <td th:text="${personaje.nombre}"></td>
                             <td th:text="${personaje.edad}"></td>
-                            <td th:text="${personaje.historia}" ></td>
+                            <td th:text="${personaje.descripcion}" ></td>
 <!--                             <td><a class="btn btn-danger btn-sm text-white"   -->
 <!--                             th:href="@{'/pelicula-serie/personaje/eliminar/'+ ${trabajo.id} +'/'+ ${personaje.id}} " -->
 <!--                             >X</a></td> -->

@@ -36,7 +36,11 @@ public class Personaje implements Serializable {
 	@NotEmpty(message = "- Debe tener una historia.")
 	@Size(max = 1000)
 	private String historia;
-
+	
+	@NotEmpty
+	@Size(max = 120)
+	private String detalle;
+	
 	@ManyToMany(mappedBy = "personajes")
 	private List<PeliculaSerie> peliculaSerie;
     
@@ -46,6 +50,15 @@ public class Personaje implements Serializable {
 	
 	public Long getId() {
 		return id;
+	}
+	
+
+	public String getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 
 	public void setId(Long id) {

@@ -8,13 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
-import com.practica.plataformaseriespeliculas.spring.app.service.IService;
+import com.practica.plataformaseriespeliculas.spring.app.service.IServicePeliculaSerie;
 
 @Controller
 public class InicioController {
     
 	@Autowired
-	private IService servicioDao;
+	private IServicePeliculaSerie servicioDao;
 	
 	@GetMapping(value = "/")
 	public String inicio(Model model) {

@@ -52,6 +52,10 @@ public class PeliculaSerie implements Serializable {
 	private String sinopsis;
 	
 	@NotEmpty
+	@Size(max = 120)
+	private String descripcion;
+	
+	@NotEmpty
 	private String tipo;
 
 	@Temporal(TemporalType.DATE)
@@ -80,6 +84,16 @@ public class PeliculaSerie implements Serializable {
 	
 	}
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
 	public void eliminarPersonaje(Personaje personajeBuscado) {
 	         this.personajes.remove(personajeBuscado);        
 	}

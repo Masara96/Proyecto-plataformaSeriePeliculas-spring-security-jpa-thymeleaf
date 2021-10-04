@@ -1,34 +1,63 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
 </head>
 <body>
 	<header th:replace="layout/layout :: header"></header>
 
 	<main>
-		<div class="container-fluid px-4">
-			<h1 class="mt-5 px-3 my-4 text-center ">Listado de Peliculas</h1>
-            
-			<div class=" row gy-2 mx-2">
-				<div class="col-xl-3 col-md-6" th:each="peliculaSerie : ${trabajo}">
-					<div class="card bg-warning text-white mb-4">
-						<div class="card-body text-center" th:text="${peliculaSerie.nombre}"></div>
-						 <img th:alt="${peliculaSerie}" th:src="@{'/upload/'+ ${peliculaSerie.imagen}}" class=" float-start  "
-								style="width:405px; height:200px;">
-						<div
-							class="card-footer d-flex align-items-center justify-content-between ">
-							<a class="small text-white stretched-link" th:href="@{'/personaje/ver/'+${peliculaSerie.id}}">Detalles
-								Personaje</a>
-							<div class="small text-white">
-								<i class="fas fa-angle-right"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+		<article>
 
+
+			<!-- Section-->
+			<section class="py-5">
+
+				<div class="container overflow-hidden">
+				<div class="container-fluid px-1">
+						<div class="alert alert-secondary py-3" style="display: flex; justify-content: space-between;" role="alert">
+							<h3 th:text="${title}" class="my-2"></h3>
+							<a sec:authorize="hasRole('ADMIN')" th:href="@{/peliculas}" th:if="${tipo != 'SERIE'}" > <img align="right"
+								class="bg-white border border-dark" alt="ListadoPeliculaSerie"
+								th:src="@{/imagen/baseline_list_black_24dp.png}">
+							</a>
+							<a sec:authorize="hasRole('ADMIN')" th:href="@{/series}" th:if="${tipo != 'PELICULA'}"> <img align="right"
+								class="bg-white border border-dark" alt="ListadoPeliculaSerie"
+								th:src="@{/imagen/baseline_list_black_24dp.png}">
+							</a>
+							
+						</div>
+
+					</div>
+				  
+					<div class="row gy-2">
+				
+						<div class="col-lg-3 py-3 d-flex align-items-stretch"
+							th:each="peliculaSerie : ${trabajo}">
+							<div th:if="${peliculaSerie.imagen != null}"
+								class="card p-3 border bg-light  "
+								style="width: 18rem; align-items: center;">
+								<img th:src="@{'/upload/'+${peliculaSerie.imagen}}"
+									th:alt="${peliculaSerie.imagen}"
+									class="img-thumbnail rounded float-start"
+									style="width: 300px; height: 200px;">
+								<div class="card-body ">
+									<h5 class="card-title text-secondary "
+										th:text="${peliculaSerie.titulo}"></h5>
+									<p class="card-text" th:text="${peliculaSerie.descripcion}"></p>
+
+								</div>
+								<span><a class="btn btn-warning" th:text="'Visualizar'"
+									th:href="@{'/pelicula-serie/ver/'}+${peliculaSerie.id}"></a></span>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</section>
+		</article>
+	</main>
 
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

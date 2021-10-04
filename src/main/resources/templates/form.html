@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+</head>
+<body>
+	<header th:replace="layout/layout :: header"></header>
+
+
+
+	<div class="container py-3 col-sm-7 ">
+
+
+
+
+		<div class="card bg-dark text-white"
+			style="width: 50rem; margin-left: 225px">
+
+			<div class="card-header text-warning">
+				<h3 th:text="'Registrar Usuario'"></h3>
+			</div>
+			<div class="card-body">
+
+
+
+				<form th:action="@{/account/form}" th:object="${usuario}"
+					method="post">
+
+					<div class="form-group row">
+						<label for="username" class="col-sm-2 col-form-label">Username</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" th:field="*{username}"
+								name="username" id="username" aria-describedby="name-usuario" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+							<span class="form-text text-danger"
+								th:if="${errorUsername != null}" th:text="${errorUsername}"></span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="password" class="col-sm-2 col-form-label">Password
+						</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control" id="password"
+								aria-describedby="edad-personaje" th:field="*{password}" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="email" class="col-sm-2 col-form-label">Email</label>
+						<div class="col-sm-8">
+							<input type="email" class="form-control" th:field="*{email}"
+								id="peso" aria-describedby="peso-personaje" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+							<span class="form-text text-danger" th:if="${errorEmail != null}"
+								th:text="${errorEmail}"></span>
+						</div>
+					</div>
+
+					<div class="form-group row py-2">
+						<div class="col-sm-3">
+							<button type="submit" class="btn btn-primary"
+								th:text="'Registrarse'"></button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

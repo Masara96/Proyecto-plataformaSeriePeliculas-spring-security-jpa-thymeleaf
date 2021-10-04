@@ -9,57 +9,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
-import com.practica.plataformaseriespeliculas.spring.app.models.entity.Personaje;
+
 import com.practica.plataformaseriespeliculas.spring.app.repository.IPeliculaSerie;
-import com.practica.plataformaseriespeliculas.spring.app.repository.IPersonaje;
 
 @Service
-public class ServiceGlobalImp implements IService {
-   
+public class ServicePeliculaSerie implements IServicePeliculaSerie {
+
 	@Autowired
 	private IPeliculaSerie peliculaSerieDoa;
-	
-	@Autowired
-	private IPersonaje personajeDao;
-	
-	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Personaje> findByNombre(String term) {
-		return personajeDao.findByNombre(term);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Personaje> findPersonajesAll() {
-		return personajeDao.findAll();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Personaje findPersonajesById(Long id) {
-		return personajeDao.findById(id).orElse(null);
-	}
-
-	@Override
-	@Transactional
-	public void savePersonaje(Personaje personaje) {
-		personajeDao.save(personaje);
-	}
-
-	@Override
-	@Transactional
-	public void deletePersonaje(Long id) {
-		personajeDao.deleteById(id);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Page<Personaje> findAll(Pageable pageable) {
-		return personajeDao.findAll(pageable);
-	}
-
-	//<----------------------------------------------------------------------------------------------------------->
 
 	@Override
 	@Transactional(readOnly = true)
@@ -82,7 +39,7 @@ public class ServiceGlobalImp implements IService {
 	@Override
 	@Transactional
 	public void deletePeliculaSerie(Long id) {
-		peliculaSerieDoa.deleteById(id);		
+		peliculaSerieDoa.deleteById(id);
 	}
 
 	@Override
@@ -96,7 +53,7 @@ public class ServiceGlobalImp implements IService {
 	public List<PeliculaSerie> findPeliculaAll() {
 		return peliculaSerieDoa.findByTipoPelicula();
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<PeliculaSerie> findSerieAll() {
@@ -107,11 +64,5 @@ public class ServiceGlobalImp implements IService {
 	public Page<PeliculaSerie> findSerieAll(Pageable pageable) {
 		return peliculaSerieDoa.findSerieAll(pageable);
 	}
-
-	
-
-	
-	
-	
 
 }

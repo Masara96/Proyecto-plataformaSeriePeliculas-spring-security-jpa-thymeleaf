@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <div><img class="img-thumbnail rounded float-start mx-4" th:alt="${personaje.imagen}" th:src="@{'/upload/'} + ${personaje.imagen}" style="width:300px; height:200px;"></div> 
                             <h2 class="card-title text-center" th:text="${personaje.nombre}"></h2>
-                            <p class="card-text" th:text="${personaje.historia}"></p>
+                            <p class="card-text" th:text="${personaje.detalle}"></p>
                         </div>
                         <div class="card-footer"><a class="btn btn-warning " th:href="@{'/personaje/ver/'}+${personaje.id}">Detalles</a></div>
                     </div>

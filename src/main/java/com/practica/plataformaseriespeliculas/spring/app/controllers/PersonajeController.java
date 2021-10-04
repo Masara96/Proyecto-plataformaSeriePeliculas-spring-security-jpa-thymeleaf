@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.Personaje;
-import com.practica.plataformaseriespeliculas.spring.app.service.IService;
+import com.practica.plataformaseriespeliculas.spring.app.service.IServicePersonaje;
 import com.practica.plataformaseriespeliculas.spring.app.service.IUpdateService;
 import com.practica.plataformaseriespeliculas.spring.app.util.paginator.PageRender;
 
@@ -37,15 +38,15 @@ import com.practica.plataformaseriespeliculas.spring.app.util.paginator.PageRend
 @SessionAttributes("personaje")
 public class PersonajeController {
 
-	@Autowired
-	private IService serviceDao;
+	@Autowired 
+	private IServicePersonaje servicePersonajeDao;
 
 	@Autowired
 	private IUpdateService updateService;
 	
 	private final static Logger log = LoggerFactory.getLogger(PersonajeController.class);
   
-	
+	@Secured("ROLE_USER")
 	@GetMapping( value = "/upload/{filename:.+}")
 	public ResponseEntity<Resource> imagen(@PathVariable String filename){
 	     
@@ -61,21 +62,28 @@ public class PersonajeController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+ recurso.getFilename()+"\"").body(recurso);
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/personajes")
 	public String listar(@RequestParam(name = "page",defaultValue = "0") int page,Model model) {
 		
 		Pageable pageRequest = PageRequest.of(page, 4);
-
-		Page<Personaje> personajes = serviceDao.findAll(pageRequest);
-
+       
+		Page<Personaje> personajes = servicePersonajeDao.findAll(pageRequest);
+        
+		log.info("Personajes : " + personajes.getNumberOfElements());
+		
+		int size =  personajes.getNumberOfElements();
+		
 	    PageRender<Personaje> pageRender = new PageRender<Personaje>("personajes", personajes);
 		
 		model.addAttribute("titulo", "Lista Personajes");
 		model.addAttribute("personajes", personajes);
 		model.addAttribute("page",pageRender);
+		model.addAttribute("size", size);
 		return "personaje/listar";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/personajes/form")
 	public String crear(Model model) {
 		Personaje personaje = new Personaje();
@@ -84,13 +92,15 @@ public class PersonajeController {
 		model.addAttribute("boton", "Crear personaje");
 		return "personaje/form";
 	}
-
+    
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/personajes/form")
 	public String guardar(@Valid Personaje personaje, BindingResult result, Model model,
 			@RequestParam("file") MultipartFile imagen, RedirectAttributes flash, SessionStatus status) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Creacion Personaje");
+			model.addAttribute("boton", "Crear Personaje");
 			return "personaje/form";
 		}
 
@@ -116,15 +126,16 @@ public class PersonajeController {
 				: "El personaje ha sido creado correctamente";
 		flash.addFlashAttribute("success", mensajeFlash);
 
-		serviceDao.savePersonaje(personaje);
+		servicePersonajeDao.savePersonaje(personaje);
 		status.setComplete();
 		return "redirect:/personajes";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/personaje/editar/{id}")
 	public String editar(@PathVariable(name = "id") Long id, Model model, RedirectAttributes flash) {
 
-		Personaje personaje = serviceDao.findPersonajesById(id);
+		Personaje personaje = servicePersonajeDao.findPersonajesById(id);
 
 		if (personaje == null) {
 			flash.addFlashAttribute("error", "No se ha encontrado el personaje!!");
@@ -138,10 +149,11 @@ public class PersonajeController {
 		return "personaje/form";
 
 	}
-
+     
+	//@Secured("ROLE_USER")
 	@GetMapping(value = "/personajes/mosaico")
 	public String mosaico(Model model,RedirectAttributes flash) {
-		List<Personaje> personaje = serviceDao.findPersonajesAll();
+		List<Personaje> personaje = servicePersonajeDao.findPersonajesAll();
 		
 		if(personaje == null) {
 			flash.addFlashAttribute("error", "No se encuenta registros de en la Base de Datos");
@@ -155,11 +167,11 @@ public class PersonajeController {
 	}
 	
 	
-	
+	@Secured("ROLE_USER")
 	@GetMapping("/personaje/ver/{id}")
 	public String ver(@PathVariable(name = "id") Long id,Model model,RedirectAttributes flash) {
         
-		Personaje personaje = serviceDao.findPersonajesById(id);
+		Personaje personaje = servicePersonajeDao.findPersonajesById(id);
 		
 		if(personaje == null) {
 			flash.addFlashAttribute("danger", "No existe el personaje en la BD!!");
@@ -171,17 +183,18 @@ public class PersonajeController {
 		return "personaje/ver";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/personaje/eliminar/{id}")
 	public String eliminar(@PathVariable(name = "id") Long id, RedirectAttributes flash) {
 
-		Personaje personaje = serviceDao.findPersonajesById(id);
+		Personaje personaje = servicePersonajeDao.findPersonajesById(id);
 
 		if (personaje == null) {
 			flash.addFlashAttribute("danger", "El personaje no existe en la BD");
 			return "redirect:/personajes";
 		}
 
-		serviceDao.deletePersonaje(id);
+		servicePersonajeDao.deletePersonaje(id);
         
 		if(personaje.getImagen() != null) {
 		   if (updateService.delete(personaje.getImagen())) {
