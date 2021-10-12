@@ -20,8 +20,9 @@ public class InicioController {
 	public String inicio(Model model) {
 		
 		List<PeliculaSerie> peliculas = servicioDao.findPeliculaAll(); 
-		
+		List<PeliculaSerie> series = servicioDao.findPeliculasSerieAll();
 		model.addAttribute("peliculas", peliculas);
+		model.addAttribute("series", series);
 		model.addAttribute("title", "Inicio de pagina");
 		return "inicio/index";
 	}
