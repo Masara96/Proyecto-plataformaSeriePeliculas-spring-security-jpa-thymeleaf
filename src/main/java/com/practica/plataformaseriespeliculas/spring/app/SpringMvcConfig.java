@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.practica.plataformaseriespeliculas.spring.app.auth.loginSuccessHandler;
 import com.practica.plataformaseriespeliculas.spring.app.service.JpaUserDetailsService;
 
+//Configuracion de rutas
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
 public class SpringMvcConfig extends WebSecurityConfigurerAdapter {
