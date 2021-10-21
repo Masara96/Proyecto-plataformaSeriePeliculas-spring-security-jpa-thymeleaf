@@ -26,7 +26,7 @@ public class LoginController {
 		}
 		
 		if(logout !=null) {
-			model.addAttribute("info", "Se ha cerrado la session con exito!");
+			flash.addFlashAttribute("info", "Se ha cerrado la session con exito!");
 			return "redirect:/login";
 		}
 		

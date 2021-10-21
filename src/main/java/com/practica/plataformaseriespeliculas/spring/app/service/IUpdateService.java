@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+
 public interface IUpdateService {
 
 	public Resource load(String filename) throws MalformedURLException;

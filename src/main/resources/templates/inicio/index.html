@@ -55,7 +55,9 @@
 					</div>
 
 				</div>
-				
+
+			</section>
+			
 				<div class="container overflow-hidden my-5">
 				<div class="container-fluid px-1">
 					<div class="alert alert-secondary " role="alert">
@@ -72,6 +74,8 @@
 					<div class="row gy-2">
 						<div class="col-lg-3 py-3 d-flex align-items-stretch "
 							th:each="serie : ${series}">
+							<div th:if="${serie.imagen != null}"
+								class="card p-3 border bg-light  "
 								style="width: 18rem; align-items: center;">
 								<img th:src="@{'/upload/'+${serie.imagen}}"
 									th:alt="${serie.imagen}"
@@ -93,8 +97,7 @@
 					</div>
 
 				</div>
-				
-				
+
 			</section>
 		</article>
 	</main>

@@ -46,7 +46,7 @@ public class PersonajeController {
 	
 	private final static Logger log = LoggerFactory.getLogger(PersonajeController.class);
   
-	@Secured("ROLE_USER")
+	
 	@GetMapping( value = "/upload/{filename:.+}")
 	public ResponseEntity<Resource> imagen(@PathVariable String filename){
 	     

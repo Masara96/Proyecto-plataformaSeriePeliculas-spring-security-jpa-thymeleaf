@@ -1,6 +1,8 @@
 package com.practica.plataformaseriespeliculas.spring.app;
 
+
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -8,10 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer{
       
 	
+	
 	public void addViewControllers(ViewControllerRegistry registry) {
-		
+		//registry.addViewController("/error_404").setViewName("error_404");
 		registry.addViewController("/error_403").setViewName("error_403");
-
+		
 	}
+	
 	
 }

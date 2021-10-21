@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 import com.practica.plataformaseriespeliculas.spring.app.auth.loginSuccessHandler;
 import com.practica.plataformaseriespeliculas.spring.app.service.JpaUserDetailsService;
 
@@ -32,9 +33,9 @@ public class SpringMvcConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		  http.authorizeRequests().antMatchers("/","/css/**","/js/**","/images/**","/","/pelicula/mosaico"
-				  ,"/serie/mosaico","/personajes/mosaico","/account/**").permitAll()
-		 .anyRequest().authenticated()
+		  http
+		  .authorizeRequests().antMatchers("/","/css/**","/js/**","/imagen/**","/","/pelicula/mosaico"
+				  ,"/serie/mosaico","/personajes/mosaico","/account/**","/upload/**").permitAll()
 		 .and().formLogin()
 		 .successHandler(successHandler)
 		 .loginPage("/login")
@@ -56,4 +57,6 @@ public class SpringMvcConfig extends WebSecurityConfigurerAdapter {
 	builder.userDetailsService(userDetailsService).passwordEncoder(encoder);
 	
 	}
+	
+	
 }

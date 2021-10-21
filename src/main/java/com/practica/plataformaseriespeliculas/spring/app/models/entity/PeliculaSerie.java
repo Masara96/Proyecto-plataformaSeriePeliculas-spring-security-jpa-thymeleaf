@@ -68,7 +68,6 @@ public class PeliculaSerie implements Serializable {
 	private List<Personaje> personajes;
     
 	public PeliculaSerie() {
-		prePersist();
 	}
 	
 	

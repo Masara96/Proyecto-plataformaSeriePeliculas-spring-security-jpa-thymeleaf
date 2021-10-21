@@ -6,10 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.practica.plataformaseriespeliculas.spring.app.models.entity.PeliculaSerie;
 
-
+@Repository
 public interface IPeliculaSerie extends JpaRepository<PeliculaSerie, Long> {
        
 	@Query("Select p from PeliculaSerie p where p.tipo like 'PELICULA'")
