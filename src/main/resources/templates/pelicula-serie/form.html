@@ -1,133 +1,148 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
+<head th:replace="layout/layout2 :: head">
 </head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio">
+
+		<div class="container py-3 col-sm-4 ">
+		
+			<div class="card bg-secondary text-white  " style="width: 48rem">
+
+				<div class="card-header text-warning">
+					<h3 th:text="${title}"></h3>
+				</div>
+				<div class="card-body">
 
 
+					<form th:action="@{/pelicula-serie/form}" th:object="${trabajo}"
+						method="post" enctype="multipart/form-data">
 
-	<div class="container py-3 col-sm-7 ">
+						<div class="form-group row ">
+							<label for="titulo" class="col-sm-2 col-form-label">Titulo
+							</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" th:field="*{titulo}"
+									id="titulo" aria-describedby="titulo-pelicula" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
 
 
-
-
-		<div class="card bg-dark text-white  " style="width: 58rem">
-
-			<div class="card-header text-warning">
-				<h3 th:text="${title}"></h3>
-			</div>
-			<div class="card-body" >
-
-           
-				<form th:action="@{/pelicula-serie/form}" th:object="${trabajo}"
-					method="post" enctype="multipart/form-data">
-
-					<div class="form-group row ">
-						<label for="titulo" class="col-sm-2 col-form-label">Titulo </label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" th:field="*{titulo}"
-								id="titulo" aria-describedby="titulo-pelicula" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></small>
-
-								
+							</div>
 						</div>
-					</div>
 
-					<div class="form-group row">
-						<label for="calificacion" class="col-sm-2 col-form-label">Calificacion</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="calificacion"
-								aria-describedby="calificacion-pelicula" th:field="*{calificacion}" value="'1'"/> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('calificacion')}" th:errors="*{calificacion}"></small>
-						</div>
-					</div>
-					
 						<div class="form-group row">
-						<label for="descripcion" class="col-sm-2 col-form-label"
-							th:text="'Descripcion'"></label>
-						<div class="col-sm-8">
-							<textarea class="form-control" th:field="*{descripcion}"
-								maxlength="120"></textarea>
-							<small class="form-text text-danger"
-								th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+							<label for="calificacion" class="col-sm-2 col-form-label">Calificacion</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="calificacion"
+									aria-describedby="calificacion-pelicula"
+									th:field="*{calificacion}" value="'1'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('calificacion')}"
+									th:errors="*{calificacion}"></small>
+							</div>
 						</div>
-					</div>
-					
-					
-					<div class="form-group row">
-						<label for="sinopsis" class="col-sm-2 col-form-label"
-							th:text="'Sinopsis'"></label>
-						<div class="col-sm-8">
-							<textarea class="form-control" th:field="*{sinopsis}"
-								maxlength="1500"></textarea>
-							<small class="form-text text-danger"
-								th:if="${#fields.hasErrors('sinopsis')}" th:errors="*{sinopsis}"></small>
+
+						<div class="form-group row">
+							<label for="descripcion" class="col-sm-2 col-form-label"
+								th:text="'Descripcion'"></label>
+							<div class="col-sm-8">
+								<textarea class="form-control" th:field="*{descripcion}"
+									maxlength="120"></textarea>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('descripcion')}"
+									th:errors="*{descripcion}"></small>
+							</div>
 						</div>
-					</div>
 
 
-					<div class="form-group row">
-						<label for="file" class="col-sm-2 col-form-label">Imagen</label>
-						<div class="col-sm-8">
-							<input type="file" name="file" class="form-control" />
+						<div class="form-group row">
+							<label for="sinopsis" class="col-sm-2 col-form-label"
+								th:text="'Sinopsis'"></label>
+							<div class="col-sm-8">
+								<textarea class="form-control" th:field="*{sinopsis}"
+									maxlength="1500"></textarea>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('sinopsis')}"
+									th:errors="*{sinopsis}"></small>
+							</div>
 						</div>
-					</div>
-					
-                    <!-- Busqueda de pesonaje para la pelicula con autocompletado :D -->
-                      
-                    <div class="form-group row">
-                       <label for="buscar_personaje" class="col-sm-2 col-form-label" th:text="'Buscar Personaje'"></label>
-                       <div class="col-sm-8" >
-                          <input type="text" name="buscar_personaje" id="buscar_personaje" class="form-control" />
-                       </div>
-                    </div>      
-                          
-                    <table th:replace="pelicula-serie/plantilla-personajes :: itemsPersonajes"></table>      
-                    
-                    <table id="cargarItemsPersonas" class="table table-sm table-striped table-hover text-white mx-2" style="width: 46rem">
-                      <thead>
-                        <tr>
-                          <th>Nombre</th>
-                          <th>Edad</th>
-                          <th>Descripcion</th>
-                          <th>Eliminar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <tr  th:each="personaje : ${trabajo.personajes}" class="text-white bg-secondary" id="row_{ID}">
-                            <td class="d-none">
-           						<input type="hidden"  th:value="${personaje.id}" name="form_id[]"  />
-          					</td> 
-          					 <td class="d-none">
-           						<input type="hidden"  th:value="${trabajo.id}" name="trabajo_id"  />
-          					</td> 
-                            <td th:text="${personaje.nombre}"></td>
-                            <td th:text="${personaje.edad}"></td>
-                            <td th:text="${personaje.descripcion}" ></td>
-<!--                             <td><a class="btn btn-danger btn-sm text-white"   -->
-<!--                             th:href="@{'/pelicula-serie/personaje/eliminar/'+ ${trabajo.id} +'/'+ ${personaje.id}} " -->
-<!--                             >X</a></td> -->
-							<td><a class="btn btn-danger btn-sm text-white" 
-							onclick="itemsHelper.deleteById();">X</a></td>
-                          </tr>
-                      </tbody>
-                    </table>
-                    <span id="hola"></span>
-					<div class="form-group row py-2">
-						<div class="col-sm-3">
-							<button type="submit" class="btn btn-primary" th:text="${boton}"></button>
+
+
+						<div class="form-group row">
+							<label for="file" class="col-sm-2 col-form-label">Imagen</label>
+							<div class="col-sm-8">
+								<input type="file" name="file" class="form-control" />
+							</div>
 						</div>
-					</div>
-					
-				</form>
+
+						<!-- Busqueda de pesonaje para la pelicula con autocompletado :D -->
+
+						<div class="form-group row">
+							<label for="buscar_personaje" class="col-sm-2 col-form-label"
+								th:text="'Buscar Personaje'"></label>
+							<div class="col-sm-8">
+								<input type="text" name="buscar_personaje" id="buscar_personaje"
+									class="form-control" />
+							</div>
+						</div>
+
+						<table
+							th:replace="pelicula-serie/plantilla-personajes :: itemsPersonajes"></table>
+
+						<table id="cargarItemsPersonas"
+							class="table table-sm table-striped table-hover text-white mx-2"
+							style="width: 46rem">
+							<thead>
+								<tr>
+									<th>Nombre</th>
+									<th>Edad</th>
+									<th>Descripcion</th>
+									<th>Eliminar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="personaje : ${trabajo.personajes}"
+									 id="row_{ID}">
+									<td class="d-none"><input type="hidden"
+										th:value="${personaje.id}" name="form_id[]" /></td>
+									<td class="d-none"><input type="hidden"
+										th:value="${trabajo.id}" name="trabajo_id" /></td>
+									<td th:text="${personaje.nombre}"></td>
+									<td th:text="${personaje.edad}"></td>
+									<td th:text="${personaje.descripcion}"></td>
+									<!--                             <td><a class="btn btn-danger btn-sm text-white"   -->
+									<!--                             th:href="@{'/pelicula-serie/personaje/eliminar/'+ ${trabajo.id} +'/'+ ${personaje.id}} " -->
+									<!--                             >X</a></td> -->
+									<td><a class="btn btn-danger btn-sm text-white"
+										onclick="itemsHelper.deleteById();">X</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<span id="hola"></span>
+						<div class="form-group row py-2">
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-primary">Crear</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<footer th:replace="layout/layout :: footer"></footer>
-	<script th:replace="pelicula-serie/js/autocomplete-personajes :: javascript"></script>
+	</section>
+	<section class="fixed-bottom">
+		<div class="footer-other">
+			<footer th:replace="layout/layout2 ::footer"></footer>
+			<div th:replace="layout/layout2 ::copyright"></div>
+		</div>
+	</section>
+	<script
+		th:replace="pelicula-serie/js/autocomplete-personajes :: javascript"></script>
 </body>
 </html>

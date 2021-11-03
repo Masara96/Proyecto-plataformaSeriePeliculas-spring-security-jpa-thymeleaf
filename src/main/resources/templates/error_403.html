@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
+<head th:replace="layout/layout2 :: head">
 </head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
+<body id="page-top" class="bodyformar">
+<nav th:replace="layout/layout2 :: nav" ></nav>
 	
-	<div class="container py-4">
+	
+	<section class="page-section portfolio" id="contenido">
+	<div class="container py-4 my-5">
 	     <div class="card bg-danger text-white">
 	      <div class="card-header">Error: Acceso Denegado!</div>
 	      <div class="card-body">
@@ -15,7 +17,10 @@
 	     </div>
 	
 	</div>
-	
-    <footer th:replace="layout/layout :: footer"></footer> 
-</body>
+	</section>
+    
+     <div class="footer-other" >
+	 <footer th:replace="layout/layout2 ::footer"></footer>
+     <div  th:replace="layout/layout2 ::copyright"></div>
+     </div>
 </html>

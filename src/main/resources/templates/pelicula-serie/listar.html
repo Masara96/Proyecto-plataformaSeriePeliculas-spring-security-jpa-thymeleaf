@@ -1,94 +1,108 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
+<head th:replace="layout/layout2 :: head">
 </head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
- 
-	<div class="container py-4">
-		
-		<div class="card bg-white text-white">
-           
-			<div class="card-header text-warning bg-white">
-				<h3 th:text="${title}"></h3>
-			
-				<a th:href="@{/pelicula/mosaico}"  th:if="${peliculas != null}" >
-				  <img align="right" class="bg-white border border-dark" alt="mosaico" th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
-				</a>
-				
-				<a th:href="@{/serie/mosaico}"  th:if="${series != null}" >
-				  <img align="right" class="bg-white border border-dark" alt="mosaico" th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
-				</a>
-				
-			</div>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
 
-			<div class="card-body" >
-				<a th:if="${peliculas != null}"
-					class="btn btn-warning text-white my-1" th:href="@{/pelicula/form}"
-					th:text="'Crear Pelicula'"></a> <a th:if="${series !=null}"
-					class="btn btn-warning text-white my-1" th:href="@{/serie/form}"
-					th:text="'Crear Serie'"></a>
+	<div th:replace="layout/layout2 :: alert"></div>
 
-				<table class="table table-white table-striped">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Titulo</th>
-							<th>Calificacion</th>
-							<th>Tipo</th>
-							<th>Editar</th>
-							<th>Eliminar</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${#lists.isEmpty(peliculas) == false}"
-							th:each="pelicula : ${peliculas}">
-							<td><a class="btn btn-primary" th:text="${pelicula.id}"
-								th:href="@{/pelicula-serie/ver/}+${pelicula.id}"></a></td>
-							<td th:text="${pelicula.titulo}"></td>
-							<td th:text="${pelicula.calificacion}"></td>
-							<td th:text="${pelicula.tipo}"></td>
-							<td><a class="btn btn-success"
-								th:href="@{/pelicula-serie/editar/}+${pelicula.id}"
-								th:text="'Editar'"></a></td>
-							<td><a class="btn btn-danger"
-								th:href="@{/pelicula-serie/eliminar/}+${pelicula.id}"
-								onclick="alert('Esta seguro de eliminar?')" th:text="'Eliminar'"></a></td>
-						</tr>
+	<section class="page-section portfolio">
 
-						<tr th:if="${#lists.isEmpty(series) == false}"
-							th:each="serie : ${series}">
-							<td><a class="btn btn-primary" th:text="${serie.id}"
-								th:href="@{/pelicula-serie/ver/}+${serie.id}"></a></td>
-							<td th:text="${serie.titulo}"></td>
-							<td th:text="${serie.calificacion}"></td>
-							<td th:text="${serie.tipo}"></td>
-							<td><a class="btn btn-success"
-								th:href="@{/pelicula-serie/editar/}+${serie.id}"
-								th:text="'Editar'"></a></td>
-							<td><a class="btn btn-danger"
-								th:href="@{/pelicula-serie/eliminar/}+${serie.id}"
-								onclick="alert('Esta seguro de eliminar?')" th:text="'Eliminar'"></a></td>
-						</tr>
-					</tbody>
-				</table>
+		<div class="container" id="table-position">
 
-				<!-- Falta hacer un cartel cuando no tenga ningun registro para avisar -->
-                
-               
-                  <div class="alert alert-warning text-center" th:if="${#lists.isEmpty(sizePelicula) == true && #lists.isEmpty(sizeSerie) == true}"  
-                   th:text="'No hay registros en la Base de datos.'"></div>
-                
-              
+			<div class="card bg-white text-white">
 
-				<div class="container col-sm-3">
-					<nav th:replace="personaje/paginator-nav :: paginator"></nav>
+				<div class="card-header text-warning text-warning">
+					<h3 th:text="${title}"></h3>
+
+					<a th:href="@{/pelicula/mosaico}" th:if="${peliculas != null}">
+						<img align="right" class="bg-white border border-dark"
+						alt="mosaico"
+						th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
+					</a> <a th:href="@{/serie/mosaico}" th:if="${series != null}"> <img
+						align="right" class="bg-white border border-dark" alt="mosaico"
+						th:src="@{/imagen/baseline_dashboard_black_24dp.png}">
+					</a>
+
+				</div>
+
+				<div class="card-body">
+					<a th:if="${peliculas != null}"
+						class="btn btn-warning text-white my-1"
+						th:href="@{/pelicula/form}" th:text="'Crear Pelicula'"></a> <a
+						th:if="${series !=null}" class="btn btn-warning text-white my-1"
+						th:href="@{/serie/form}" th:text="'Crear Serie'"></a>
+
+					<table class="table table-white table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Titulo</th>
+								<th>Calificacion</th>
+								<th>Tipo</th>
+								<th>Editar</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${#lists.isEmpty(peliculas) == false}"
+								th:each="pelicula : ${peliculas}">
+								<td><a class="btn btn-primary" th:text="${pelicula.id}"
+									th:href="@{/pelicula-serie/ver/}+${pelicula.id}"></a></td>
+								<td th:text="${pelicula.titulo}"></td>
+								<td th:text="${pelicula.calificacion}"></td>
+								<td th:text="${pelicula.tipo}"></td>
+								<td><a class="btn btn-success"
+									th:href="@{/pelicula-serie/editar/}+${pelicula.id}"
+									th:text="'Editar'"></a></td>
+								<td><a class="btn btn-danger"
+									th:href="@{/pelicula-serie/eliminar/}+${pelicula.id}"
+									onclick="alert('Esta seguro de eliminar?')"
+									th:text="'Eliminar'"></a></td>
+							</tr>
+
+							<tr th:if="${#lists.isEmpty(series) == false}"
+								th:each="serie : ${series}">
+								<td><a class="btn btn-primary" th:text="${serie.id}"
+									th:href="@{/pelicula-serie/ver/}+${serie.id}"></a></td>
+								<td th:text="${serie.titulo}"></td>
+								<td th:text="${serie.calificacion}"></td>
+								<td th:text="${serie.tipo}"></td>
+								<td><a class="btn btn-success"
+									th:href="@{/pelicula-serie/editar/}+${serie.id}"
+									th:text="'Editar'"></a></td>
+								<td><a class="btn btn-danger"
+									th:href="@{/pelicula-serie/eliminar/}+${serie.id}"
+									onclick="alert('Esta seguro de eliminar?')"
+									th:text="'Eliminar'"></a></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Falta hacer un cartel cuando no tenga ningun registro para avisar -->
+
+
+					<div class="alert alert-warning text-center"
+						th:if="${#lists.isEmpty(sizePelicula) == true && #lists.isEmpty(sizeSerie) == true}"
+						th:text="'No hay registros en la Base de datos.'"></div>
+
+
+
+					<div class="container col-sm-3">
+						<nav th:replace="personaje/paginator-nav :: paginator"></nav>
+					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
+	</section>
+	<section class="fixed-bottom">
+	<div class="footer-other">
+		<footer th:replace="layout/layout2 ::footer"></footer>
+		<div th:replace="layout/layout2 ::copyright"></div>
 	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
+	</section>
 
 </body>
 </html>

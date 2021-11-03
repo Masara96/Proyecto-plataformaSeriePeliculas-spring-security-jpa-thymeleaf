@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title th:text="'Spring plataforma de peliculas y series :' + ${title}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+<link rel="stylesheet" th:href="@{/css/styleCss.css}" />
+<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+	crossorigin="anonymous"></script>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" th:href="@{/imagen/favicon.ico}" />
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link th:href="@{css/stylesOtro.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<nav
+		class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
+		id="mainNav" th:fragament="nav">
+
+		<div class="container">
+			<a class="navbar-brand" th:href="@{/}">Peliculas & Series</a>
+			<button
+				class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+				type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				Menu <i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded"
+						th:href="@{/serie/mosaico}">Series</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded"
+						th:href="@{/pelicula/mosaico}">peliculas</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded"
+						th:href="@{/personajes/mosaico}">Personajes</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Nosotros</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a
+						class="nav-link py-3 px-0 px-lg-3 rounded" th:href="@{/contacto}">Contacto</a></li>
+
+				</ul>
+
+				<ul class="navbar-nav ms-auto">
+
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-warning" th:href="@{/login}">Sing in</a></li>
+
+					<li sec:authorize="isAuthenticated()" class="nav-item active">
+
+						<div class="dropdown">
+							<button class="btn btn-warning dropdown-toggle " type="button"
+								id="dropdownMenuButton" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">
+								<span sec:authentication="name"></span>
+							</button>
+
+							<div class="dropdown-menu bg-warning"
+								aria-labelledby="dropdownMenuButton">
+								<form id="logoutForm" th:action="@{/logout}" method="post">
+									<button class="btn btn-warning" type="button"
+										onclick="document.getElementById('logoutForm').submit();">Sing
+										Out</button>
+								</form>
+							</div>
+						</div>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+
+	</nav>
+
+	<div th:fragment="alert" style="margin-top: 100px; margin-bottom: 10px"
+		id="contenido">
+
+		<div id="divTimeOut" class="alert alert-success text-center"
+			th:if="${success != null}" th:text="${success}"></div>
+		<div id="divTimeOut" class="alert alert-danger text-center"
+			th:if="${error != null}" th:text="${error}"></div>
+		<div id="divTimeOut" class="alert alert-warning text-center"
+			th:if="${warning != null}" th:text="${warning}"></div>
+		<div id="divTimeOut" class="alert alert-info text-center"
+			th:if="${info != null}" th:text="${info}"></div>
+
+	</div>
+
+
+	<section th:fragment="section-contact" class="page-section"
+		id="contact">
+		<div class="container">
+			<!-- Contact Section Heading-->
+			<h2
+				class="page-section-heading text-center text-uppercase text-secondary mb-0">Contacto</h2>
+			<!-- Icon Divider-->
+			<div class="divider-custom">
+				<div class="divider-custom-line"></div>
+				<div class="divider-custom-icon">
+					<i class="fas fa-star"></i>
+				</div>
+				<div class="divider-custom-line"></div>
+			</div>
+			<!-- Contact Section Form-->
+			<div class="row justify-content-center" style="position: relative;">
+				<div class="col-lg-8 col-xl-7">
+
+
+					<form id="contactForm" th:action="@{/contacto}" method="post"
+						th:object="${mensaje}">
+						<!-- Name input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="name" type="text"
+								th:field="*{nombre}" placeholder="Enter your name..." required />
+							<label for="name">Nombre Completo</label>
+							<div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+								<span class="form-text text-danger"
+									th:if="${errorNombre != null}" th:text="${errorNombre}"></span>
+							</div>
+
+						</div>
+						<!-- Email address input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="email" type="email"
+								placeholder="name@example.com" th:field="*{email}" required />
+							<label for="email">Email</label>
+							<div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+								<span class="form-text text-danger"
+									th:if="${errorEmail != null}" th:text="${errorEmail}"></span>
+							</div>
+						</div>
+
+						<!-- Phone number input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="telefono" type="tel"
+								th:field="*{telefono}" placeholder="(123) 456-7890"
+								required="required" /> <label for="telefono">Numero
+								Telefonico</label>
+									<div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+								<span class="form-text text-danger"
+									th:if="${errortelefono != null}" th:text="${errorTelefono}"></span>
+							</div>
+
+						</div>
+						<!-- Message input-->
+						<div class="form-floating mb-3">
+							<textarea class="form-control" id="consulta" type="text"
+								th:field="*{consulta}" placeholder="Enter your message here..."
+								style="height: 10rem" required></textarea>
+							<label for="consulta">Mensaje</label>
+								<div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('consulta')}" th:errors="*{consulta}"></small>
+								<span class="form-text text-danger"
+									th:if="${errorConsulta != null}" th:text="${errorConsulta}"></span>
+							</div>
+
+						</div>
+
+
+
+
+						<!-- Submit Button-->
+
+
+						<input type="submit" class="btn btn-primary btn-xl" value="Enviar" />
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer th:fragment="footer" class="footer text-center">
+
+		<div class="container">
+			<div class="row">
+				<!-- Footer Location-->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">Ubicacion</h4>
+					<p class="lead mb-0">Buenos Aires, Argentina.</p>
+				</div>
+				<!-- Footer Social Icons-->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">Sitios Web</h4>
+					<a class="btn btn-outline-light btn-social mx-1" href="https://www.instagram.com/martinf.sarandeses/"><i
+						class="fab fa-fw fa-instagram"></i></a> <a
+						class="btn btn-outline-light btn-social mx-1" href="https://github.com/masara96"><i
+						class="fab fa-fw fa-github"></i></a> <a
+						class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/martin-sarandeses/"><i
+						class="fab fa-fw fa-linkedin-in"></i></a>
+
+				</div>
+				<!-- Footer About Text-->
+				<div class="col-lg-4">
+					<h4 class="text-uppercase mb-4">Sobre</h4>
+					<p class="lead mb-0">
+						Plantilla de uso gratis,de MIT licensed Bootstrap theme created by
+						<a href="http://startbootstrap.com">Start Bootstrap</a>, usando <a
+							href="http://thymeleaf.org">thymeleaf</a> .
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- Copyright Section-->
+		<!-- Copyright Section-->
+
+
+		<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		<!-- Core theme JS-->
+		<script th:src="@{/js/scripts.js}"></script>
+		<script th:replace="layout/js/setTimeOut :: javascript"></script>
+		<!-- Bootstrap core JS-->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- Core theme JS-->
+		<script src="js/scripts.js"></script>
+		<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+	</footer>
+
+	<div th:fragment="copyright"
+		class="copyright py-4 text-center text-white  ">
+		<div class="container">
+			<small>Copyright &copy; Your Website 2021</small>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

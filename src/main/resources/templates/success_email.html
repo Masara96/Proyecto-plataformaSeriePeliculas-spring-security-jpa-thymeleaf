@@ -3,21 +3,24 @@
 <head th:replace="layout/layout2 :: head">
 </head>
 <body id="page-top" class="bodyformar">
-<!-- 	<header th:replace="layout/layout :: header"></header> -->
-	<nav th:replace="layout/layout2 :: nav" ></nav>
-	<section class="page-section portfolio" id="contenido">
-	<div class="container py-4 my-5">
-	     <div class="card bg-danger text-white">
-	      <div class="card-header">Error: Acceso Denegado!</div>
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio">
+	
+		<div class="container py-4 my-5">
+	     <div class="card bg-info text-white">
+	      <div class="card-header">Se ha enviado el correo!</div>
 	      <div class="card-body">
-	       <h5>Lo sentimos <span th:text="${#httpServletRequest.remoteUser}"></span>, No existe la direccion de la pagina marcada.</h5>
+	       <h5>Su mensaje ha sido enviado correctamente, en unos instantes un operador se comunicara con usted.</h5>
 	        <a th:href="@{/}" class="btn btn-outline-light" role="button"> Ir a Inicio</a>
 	      </div>
 	     </div>
 	
 	</div>
-	</section>
-
+	
+    </section>
 	<section class="fixed-bottom">
 		<div class="footer-other">
 			<footer th:replace="layout/layout2 ::footer"></footer>

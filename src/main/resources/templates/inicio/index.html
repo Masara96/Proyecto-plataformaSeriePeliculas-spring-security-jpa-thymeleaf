@@ -1,109 +1,278 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head"></head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
-	<!-- Header-->
-	<div class="bg-secondary py-5">
-		<div class="container px-4 px-lg-5 my-5">
-			<div class="text-center text-warning">
-				<h1 class="display-4 fw-bolder">Wiki Peliculas & Series</h1>
-				<p class="lead fw-normal text-white-50 mb-0">Informacion y
-					Actualidad.</p>
+<head th:replace="layout/layout2 :: head">
+</head>
+<body id="page-top">
+
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<!-- Masthead-->
+	<header class="masthead bg-primary text-white text-center">
+		<div class="container d-flex align-items-center flex-column">
+			<!-- Masthead Avatar Image-->
+
+			<!-- Masthead Heading-->
+			<h1 class="masthead-heading text-uppercase mb-0">Wiki Peliculas
+				& Series</h1>
+			<!-- Icon Divider-->
+			<div class="divider-custom divider-light">
+				<div class="divider-custom-line"></div>
+				<div class="divider-custom-icon">
+					<i class="fas fa-star"></i>
+				</div>
+				<div class="divider-custom-line"></div>
+			</div>
+			<!-- Masthead Subheading-->
+			<p class="masthead-subheading font-weight-light mb-0">Informacion
+				y Actualidad.</p>
+		</div>
+	</header>
+
+	<!-- Portfolio Section-->
+	<section class="page-section portfolio" id="contenido">
+		<div class="container">
+			<!-- Portfolio Section Heading-->
+			<h2
+				class="page-section-heading text-center text-uppercase text-secondary mb-0">Contenido</h2>
+			<!-- Icon Divider-->
+			<div class="divider-custom">
+				<div class="divider-custom-line"></div>
+				<div class="divider-custom-icon">
+					<i class="fas fa-star"></i>
+				</div>
+				<div class="divider-custom-line"></div>
+			</div>
+			<!-- Portfolio Grid Items-->
+			<div class="row justify-content-center">
+				<!-- Portfolio Item 1-->
+				<div class="col-md-6 col-lg-4 mb-5">
+					<h2
+						class="page-section-heading text-center text-uppercase text-secondary mb-0 my-4">Series</h2>
+					<hr>
+					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
+						data-bs-target="#portfolioModal1">
+						<div
+							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div
+								class="portfolio-item-caption-content text-center text-white">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img class="img-fluid" src="imagen/series.jpg" alt="series"
+							style="width: 500px; height: 240px;" />
+					</div>
+				</div>
+				<!-- Portfolio Item 2-->
+				<div class="col-md-6 col-lg-4 mb-5">
+					<h2
+						class="page-section-heading text-center text-uppercase text-secondary mb-0 my-4">Peliculas</h2>
+					<hr>
+					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
+						data-bs-target="#portfolioModal2">
+						<div
+							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div
+								class="portfolio-item-caption-content text-center text-white">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+
+						<img class="img-fluid" src="imagen/peliculas.jpg"
+							style="width: 500px; height: 240px;" alt="..." />
+					</div>
+				</div>
+				<!-- Portfolio Item 3-->
+				<div class="col-md-6 col-lg-4 mb-5">
+					<h2
+						class="page-section-heading text-center text-uppercase text-secondary mb-0 my-4">Personajes</h2>
+					<hr>
+					<div class="portfolio-item mx-auto" data-bs-toggle="modal"
+						data-bs-target="#portfolioModal3">
+						<div
+							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+							<div
+								class="portfolio-item-caption-content text-center text-white">
+								<i class="fas fa-plus fa-3x"></i>
+							</div>
+						</div>
+						<img class="img-fluid" src="imagen/personajes.jpg"
+							style="width: 500px; height: 240px;" alt="..." />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- About Section-->
+	<section class="page-section bg-primary text-white mb-0" id="about">
+		<div class="container">
+			<!-- About Section Heading-->
+			<h2
+				class="page-section-heading text-center text-uppercase text-white">Sobre
+				la plataforma</h2>
+			<!-- Icon Divider-->
+			<div class="divider-custom divider-light">
+				<div class="divider-custom-line"></div>
+				<div class="divider-custom-icon">
+					<i class="fas fa-star"></i>
+				</div>
+				<div class="divider-custom-line"></div>
+			</div>
+			<!-- About Section Content-->
+			<div class="row">
+				<div class="col-lg-4 ms-auto">
+					<p class="lead">Hola, esta es una plataforma de peliculas y
+						series en las cual se puede ver informacion y actualizadad, la
+						cual esta actualizada con los ultimos eventos y estrenos del cine
+						tanto como plataformas de streeming.</p>
+				</div>
+				<div class="col-lg-4 me-auto">
+					<p class="lead">La plataforma permite crear una cuenta para
+						poder comentar las noticias y la actualidad del contenido pudiendo
+						asi interactura con otras personas tanto como intercambiar
+						opiniones, pudiendo asi enriqueser el contenido tanto como la
+						pagina!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Contact Section-->
+	<section th:replace="layout/layout2 :: section-contact"></section>
+
+	<footer th:replace="layout/layout2 ::footer"></footer>
+	<div th:replace="layout/layout2 :: copyright"></div>
+
+	<!-- Portfolio Modals-->
+	<!-- Portfolio Modal 1-->
+	<div class="portfolio-modal modal fade" id="portfolioModal1"
+		tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header border-0">
+					<button class="btn-close" type="button" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center pb-5">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<!-- Portfolio Modal - Title-->
+								<h2
+									class="portfolio-modal-title text-secondary text-uppercase mb-0">Informacion</h2>
+								<!-- Icon Divider-->
+								<div class="divider-custom">
+									<div class="divider-custom-line"></div>
+									<div class="divider-custom-icon">
+										<i class="fas fa-star"></i>
+									</div>
+									<div class="divider-custom-line"></div>
+								</div>
+								<!-- Portfolio Modal - Image-->
+								<img class="img-fluid rounded mb-5" src="imagen/series.jpg"
+									alt="..." />
+								<!-- Portfolio Modal - Text-->
+								<p class="mb-4">Una serie de televisión es una obra de
+									carácter audiovisual y generalmente narrativa que se difunde
+									por televisión, en entregas periódicas, manteniendo cada una de
+									ellas una unidad y continuidad argumental o al menos temática
+									con los episodios anteriores y posteriores. Puede constar de
+									una o más temporadas.</p>
+								<a class="btn btn-primary" th:href="@{/serie/mosaico}"> Ver
+									Series </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Portfolio Modal 2-->
+	<div class="portfolio-modal modal fade" id="portfolioModal2"
+		tabindex="-1" aria-labelledby="portfolioModal2" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header border-0">
+					<button class="btn-close" type="button" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center pb-5">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<!-- Portfolio Modal - Title-->
+								<h2
+									class="portfolio-modal-title text-secondary text-uppercase mb-0">Informacion</h2>
+								<!-- Icon Divider-->
+								<div class="divider-custom">
+									<div class="divider-custom-line"></div>
+									<div class="divider-custom-icon">
+										<i class="fas fa-star"></i>
+									</div>
+									<div class="divider-custom-line"></div>
+								</div>
+								<!-- Portfolio Modal - Image-->
+								<img class="img-fluid rounded mb-5" src="imagen/peliculas.jpg"
+									alt="..." />
+								<!-- Portfolio Modal - Text-->
+								<p class="mb-4">Una película (del latín pellicula,
+									diminutivo de pellis) es una serie de imágenes fijas
+									que, cuando se proyectan en una pantalla de forma consecutiva
+									en rápida sucesión, crean la ilusión óptica de imágenes en
+									movimiento.</p>
+								<a class="btn btn-primary" th:href="@{/pelicula/mosaico}">
+									Ver Peliculas </a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Portfolio Modal 3-->
+	<div class="portfolio-modal modal fade" id="portfolioModal3"
+		tabindex="-1" aria-labelledby="portfolioModal3" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header border-0">
+					<button class="btn-close" type="button" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center pb-5">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<!-- Portfolio Modal - Title-->
+								<h2
+									class="portfolio-modal-title text-secondary text-uppercase mb-0">Personajes</h2>
+								<!-- Icon Divider-->
+								<div class="divider-custom">
+									<div class="divider-custom-line"></div>
+									<div class="divider-custom-icon">
+										<i class="fas fa-star"></i>
+									</div>
+									<div class="divider-custom-line"></div>
+								</div>
+								<!-- Portfolio Modal - Image-->
+								<img class="img-fluid rounded mb-5" src="imagen/personajes.jpg"
+									alt="..." />
+								<!-- Portfolio Modal - Text-->
+								<p class="mb-4">El actor construye su trabajo usando la voz
+								    y otros recursos corporales y emocionales con el fin
+									de transmitir al espectador el conjunto de ideas y acciones
+									propuestas. Puede asimismo usar recursos técnicos u objetos
+									como manipular títeres, o interpretar sobre la imagen o la voz
+									de los demás.</p>
+								<a class="btn btn-primary" th:href="@{/personajes/mosaico}">
+									Personajes </a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<main>
-		<article>
-			<div class="container overflow-hidden my-5">
-				<div class="container-fluid px-1">
-					<div class="alert alert-secondary " role="alert">
-						<h3>Peliculas Recomendas</h3>
-					</div>
-				</div>
-				<hr />
-
-			</div>
-
-			<!-- Section-->
-			<section>
-				<div class="container overflow-hidden ">
-					<div class="row gy-2">
-						<div class="col-lg-3 py-3 d-flex align-items-stretch "
-							th:each="pelicula : ${peliculas}">
-							<div th:if="${pelicula.imagen != null}"
-								class="card p-3 border bg-light  "
-								style="width: 18rem; align-items: center;">
-								<img th:src="@{'/upload/'+${pelicula.imagen}}"
-									th:alt="${pelicula.imagen}"
-									class="img-thumbnail rounded float-start"
-									style="width: 300px; height: 200px;">
-								<div class="card-body ">
-									<h5 class="card-title text-secondary text-center "
-										th:text="${pelicula.titulo}"></h5>
-									<p th:text="${pelicula.descripcion}"></p>
-
-								</div>
-								<span><a class="btn btn-warning text-white px-5"
-									th:text="'Visualizar'"
-									th:href="@{'/pelicula-serie/ver/'}+${pelicula.id}"></a></span>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</section>
-			
-				<div class="container overflow-hidden my-5">
-				<div class="container-fluid px-1">
-					<div class="alert alert-secondary " role="alert">
-						<h3>Series Recomendas</h3>
-					</div>
-				</div>
-				<hr />
-
-			</div>
-
-			<!-- Section-->
-			<section>
-				<div class="container overflow-hidden ">
-					<div class="row gy-2">
-						<div class="col-lg-3 py-3 d-flex align-items-stretch "
-							th:each="serie : ${series}">
-							<div th:if="${serie.imagen != null}"
-								class="card p-3 border bg-light  "
-								style="width: 18rem; align-items: center;">
-								<img th:src="@{'/upload/'+${serie.imagen}}"
-									th:alt="${serie.imagen}"
-									class="img-thumbnail rounded float-start"
-									style="width: 300px; height: 200px;">
-								<div class="card-body ">
-									<h5 class="card-title text-secondary text-center "
-										th:text="${serie.titulo}"></h5>
-									<p th:text="${serie.descripcion}"></p>
-
-								</div>
-								<span><a class="btn btn-warning text-white px-5"
-									th:text="'Visualizar'"
-									th:href="@{'/pelicula-serie/ver/'}+${serie.id}"></a></span>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</section>
-		</article>
-	</main>
-
-	<!-- Footer-->
-	<footer th:replace="layout/layout :: footer"> </footer>
 
 </body>
 </html>

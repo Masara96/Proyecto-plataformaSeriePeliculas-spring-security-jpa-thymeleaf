@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="layout/layout :: head">
-    </head>
-    <body>
-         
-         <header th:replace="layout/layout :: header"></header>
-            
-        <!-- Page Content-->
-        <div class="container px-4 px-lg-5">
+<head th:replace="layout/layout2 :: head">
+</head>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<div th:replace="layout/layout2 :: alert"></div>
+
+
+	<section class="page-section portfolio">
+
+        <div class="container px-4 px-lg-5 " >
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-4"><img class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/upload/}+${trabajo.imagen}" th:alt="${trabajo.imagen}" /></div>
-                <div class="col-lg-5">
+                <div class="col-lg-4"><img   class="img-fluid rounded mb-4 mb-lg-0" th:src="@{/upload/}+${trabajo.imagen}" style="width:500px; height:400px;" th:alt="${trabajo.imagen}" /></div>
+                <div class="col-lg-5 mx-5">
                     <h1 class="font-weight-light" th:text="${trabajo.titulo}"></h1>
                     <p th:text="${trabajo.sinopsis}"></p>
-                    <a class="btn btn-warning" href="#!" th:text="Volver"></a>
+                    <a class="btn btn-warning" th:if="${trabajo.tipo == 'SERIE'}"  th:href="@{/serie/mosaico}" th:text="Volver"></a>
+                    <a class="btn btn-warning" th:if="${trabajo.tipo == 'PELICULA'}"  th:href="@{/pelicula/mosaico}" th:text="Volver"></a>
                 </div>
             </div>
             <!-- Call to Action-->
@@ -22,20 +26,51 @@
                 <div class="card-body"><p class="text-white m-0">FANDOM es voz de los fans del entretenimiento. Un lugar donde los fans pueden discutir, encontrar y compartir conocimientos sobre cualquier tema.</p></div>
             </div>
             <!-- Content Row-->
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-4 mb-5" th:each="personaje : ${trabajo.personajes}">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div><img class="img-thumbnail rounded float-start mx-4" th:alt="${personaje.imagen}" th:src="@{'/upload/'} + ${personaje.imagen}" style="width:300px; height:200px;"></div> 
-                            <h2 class="card-title text-center" th:text="${personaje.nombre}"></h2>
-                            <p class="card-text" th:text="${personaje.detalle}"></p>
-                        </div>
-                        <div class="card-footer"><a class="btn btn-warning " th:href="@{'/personaje/ver/'}+${personaje.id}">Detalles</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer-->
-       <footer th:replace="layout/layout :: footer"></footer>
+        
+			<div class="container overflow-hidden" >
+				 <h2
+					class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size:xx-large;"
+					>Personajes</h2>
+			</div>
+			<hr>
+			
+
+         <div class="row gy-2" >
+				<div class="col-lg-3 py-3 d-flex align-items-stretch"
+					th:each="personaje : ${trabajo.personajes}">
+
+					<div class="portfolio-item mx-auto"
+						th:if="${personaje.imagen != null}">
+
+						<div
+							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+
+							<div class="portfolio-item-caption-content text-center text-white">
+                                <div> 
+								<i th:text="${personaje.nombre}" > </i>
+								</div>
+								 <a class="btn btn-warning text-white my-2 " th:href="@{/personaje/ver/}+${personaje.id}"
+                                 >Detalle</a>
+							</div>
+                         
+						</div>
+						<img class="img-fluid"
+							th:src="@{'/upload/'+${personaje.imagen}}" alt="personaje"
+							style="width: 500px; height: 240px;" />
+                    
+					</div>
+					
+				</div>
+			</div>
+			</div>
+        </section>
+	
+	<section class="fixed-bottom">
+		<div class="footer-other">
+			<footer th:replace="layout/layout2 ::footer"></footer>
+			<div th:replace="layout/layout2 ::copyright"></div>
+		</div>
+	</section>
+
     </body>
 </html>

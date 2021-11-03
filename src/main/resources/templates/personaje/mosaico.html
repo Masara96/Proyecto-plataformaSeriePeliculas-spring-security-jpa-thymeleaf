@@ -1,60 +1,68 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout/layout :: head">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout2 :: head">
 </head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
 
-	<main>
-		<article>
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio">
 
 
+		<div class="container overflow-hidden">
 
-			<!-- Section-->
-			<section class="py-5">
 
-				<div class="container overflow-hidden">
-					<div class="container-fluid px-1">
-						<div class="alert alert-secondary py-3" style="display: flex; justify-content: space-between;" role="alert">
-							<h3 th:text="${title}" class="my-2"></h3>
-							<a sec:authorize="hasRole('ADMIN')" th:href="@{/personajes}"> <img align="right"
-								class="bg-white border border-dark" alt="ListadoPersonajes"
-								th:src="@{/imagen/baseline_list_black_24dp.png}">
-							</a>
-							
-						</div>
+			<div class="container overflow-hidden">
+				<a sec:authorize="hasRole('ADMIN')" th:href="@{/personajes}"
+					> <img align="right"
+					class="bg-white border border-dark" alt="ListadoPersonajes"
+					th:src="@{/imagen/baseline_list_black_24dp.png}">
+				</a>
+				<h2
+					class="page-section-heading text-center text-uppercase text-secondary mb-0 "
+					>Personajes</h2>
 
-					</div>
-					<div class="row gy-2">
-						<div class="col-lg-3 py-1 d-flex align-items-stretch"
-							th:each="personaje : ${trabajo}">
-							<div th:if="${personaje.imagen != null}"
-								class="card p-3 border bg-light  "
-								style="width: 18rem; align-items: center;">
-								<img th:src="@{'/upload/'+${personaje.imagen}}"
-									th:alt="${personaje.imagen}"
-									class="img-thumbnail rounded float-start"
-									style="width: 300px; height: 200px;">
-								<div class="card-body ">
-									<h5 class="card-title text-secondary "
-										th:text="${personaje.nombre}"></h5>
-									<p class="card-text" th:text="${personaje.detalle}"></p>
+			</div>
+             
+			<hr>
 
+	      <div class="row gy-2" >
+				<div class="col-lg-3 py-3 d-flex align-items-stretch"
+					th:each="personaje : ${trabajo}">
+
+					<div class="portfolio-item mx-auto"
+						>
+
+						<div
+							class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+
+							<div class="portfolio-item-caption-content text-center text-white">
+                                <div> 
+								<i th:text="${personaje.nombre}" > </i>
 								</div>
-								<span><a class="btn btn-warning" th:text="'Visualizar'"
-									th:href="@{'/personaje/ver/'}+${personaje.id}"></a></span>
+								 <a class="btn btn-warning text-white my-2 " th:href="@{/personaje/ver/}+${personaje.id}"
+                                 >Detalle</a>
 							</div>
-
+                         
 						</div>
-
+						<img class="img-fluid"
+							th:src="@{'/upload/'+${personaje.imagen}}" alt="personaje"
+							style="width: 500px; height: 240px;" />
+                    
 					</div>
-
+					
 				</div>
-			</section>
-		</article>
-	</main>
+			</div>
+			</div>
+	</section>
 
-
-	<footer th:replace="layout/layout :: footer"></footer>
+	<section class="fixed-bottom">
+		<div class="footer-other">
+			<footer th:replace="layout/layout2 ::footer"></footer>
+			<div th:replace="layout/layout2 ::copyright"></div>
+		</div>
+	</section>
 </body>
 </html>

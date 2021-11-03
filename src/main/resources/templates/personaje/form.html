@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout/layout :: head">
+<head th:replace="layout/layout2 :: head">
 </head>
-<body>
-	<header th:replace="layout/layout :: header"></header>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
 
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio">
 
 
 	<div class="container py-3 col-sm-7 ">
@@ -95,7 +98,12 @@
 			</div>
 		</div>
 	</div>
-
-	<footer th:replace="layout/layout :: footer"></footer>
+        </section>
+	<section class="fixed-bottom">
+	<div class="footer-other">
+		<footer th:replace="layout/layout2 ::footer"></footer>
+		<div th:replace="layout/layout2 ::copyright"></div>
+	</div>
+	</section>
 </body>
 </html>

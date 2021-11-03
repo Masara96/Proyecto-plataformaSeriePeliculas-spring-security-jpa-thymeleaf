@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="layout/layout :: head">
-    </head>
-    <body>
-         <header th:replace="layout/layout :: header"></header>
-          
-        <!-- Product section-->
+<head th:replace="layout/layout2 :: head">
+</head>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio"  >
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/upload/'+ ${personaje.imagen}}" th:alt="${personaje.imagen}" /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/upload/'+ ${personaje.imagen}}" th:alt="${personaje.imagen}" 
+                    style="width:500px; height:400px;" /></div>
                     <div class="col-md-6">
                         <div class="small mb-1" th:text="'Personaje'" ></div>
                         <h1 class="display-5 fw-bolder" th:text="${personaje.nombre}"></h1>
@@ -21,13 +24,19 @@
                         </div>
                         <p class="lead" th:text="${personaje.historia}"></p>
                         <div class="d-flex">
-                            <div><a class="btn btn-warning flex-shrink-0" th:href="@{/personajes}" th:text="'Volver'"></a></div>
+                            <div><a class="btn btn-warning flex-shrink-0" th:href="@{/personajes/mosaico}" th:text="'Volver'"></a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <footer th:replace="layout/layout :: footer"></footer>
+  </section>
+	<section class="fixed-bottom">
+		<div class="footer-other">
+			<footer th:replace="layout/layout2 ::footer"></footer>
+			<div th:replace="layout/layout2 ::copyright"></div>
+		</div>
+	</section>
     </body>
 </html>

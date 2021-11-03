@@ -52,6 +52,8 @@ public class PersonajeController {
 	     
 		Resource recurso = null;
 		
+		log.warn("filename!!!!!!!!!!!!!!!! : " + filename);
+		
 		try {
 			recurso = updateService.load(filename);
 		} catch (MalformedURLException e) {
@@ -105,10 +107,13 @@ public class PersonajeController {
 		}
 
 		if (!imagen.isEmpty()) {
+			
 			if (personaje.getId() != null && personaje.getId() > 0 && personaje.getImagen() != null) {
 				updateService.delete(personaje.getImagen());
 			}
-
+            
+			
+			
 			String uniqueFilename = null;
 
 			try {
@@ -153,6 +158,7 @@ public class PersonajeController {
 	//@Secured("ROLE_USER")
 	@GetMapping(value = "/personajes/mosaico")
 	public String mosaico(Model model,RedirectAttributes flash) {
+		
 		List<Personaje> personaje = servicePersonajeDao.findPersonajesAll();
 		
 		if(personaje == null) {
@@ -162,7 +168,6 @@ public class PersonajeController {
 		
 		model.addAttribute("title","Listado Personaje");
 		model.addAttribute("trabajo", personaje);
-		
 		return "personaje/mosaico";
 	}
 	
@@ -196,11 +201,11 @@ public class PersonajeController {
 
 		servicePersonajeDao.deletePersonaje(id);
         
-		if(personaje.getImagen() != null) {
-		   if (updateService.delete(personaje.getImagen())) {
-               log.info("La imagen '" + personaje.getImagen()+ "' ha sido elimanda");
-	       }
-		}
+//		if(personaje.getImagen() != null) {
+//		   if (updateService.delete(personaje.getImagen())) {
+//               log.info("La imagen '" + personaje.getImagen()+ "' ha sido elimanda");
+//	       }
+//		}
 
 		flash.addFlashAttribute("success", "El personaje ha sido eliminado con exito!!");
 		return "redirect:/personajes";

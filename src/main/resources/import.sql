@@ -7,14 +7,14 @@ INSERT INTO `authorities` (user_id,authority) VALUES ('2','ROLE_USER');
 
 
 
-INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Peter Parker','25',57.6,'Un vago distinto','Algun detalle');
+INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Peter Parker','25',57.6,'Algun detalle','Algun detalle');
 INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Mary Jane','25',57.6,'ALgo','Algun detalle');
-INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Harold_lyman','25',57.6,'ALgo','Algun detalle');
-INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Beto','25',57.6,'Un vago distinto','Algun detalle');
+INSERT INTO personajes(nombre,edad,peso,historia,detalle) VALUES ('Harold lyman','25',57.6,'ALgo','Algun detalle');
+
 
 
 INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo,sinopsis,descripcion) VALUES ('4',NOW(),null,'PELICULA','The amazing spiderman',"Es el hombre araña","Es un chico comun que le pico una araña");
 INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo,sinopsis,descripcion) VALUES ('1',NOW(),null,'PELICULA','Batman',"Es el hombre murcielago","Es un chico comun que se volvio un justiciero");
-INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo) VALUES ('2',NOW(),null,'SERIE','Flash');
-INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo) VALUES ('3',NOW(),null,'SERIE','Linterna Verde');
-INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo) VALUES ('5',NOW(),null,'PELICULA','Infinity wars');
+
+INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo,sinopsis,descripcion) VALUES ('2',NOW(),null,'SERIE','Flash','Corre rapido','Es un cientifico');
+INSERT INTO pelicula_serie(calificacion,create_at,imagen,tipo,titulo,sinopsis,descripcion) VALUES ('3',NOW(),null,'SERIE','Linterna Verde','Tiene un anillo','Poderes misticos');

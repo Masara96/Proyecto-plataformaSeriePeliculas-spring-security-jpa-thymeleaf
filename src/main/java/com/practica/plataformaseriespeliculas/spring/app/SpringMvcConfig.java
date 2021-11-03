@@ -36,7 +36,7 @@ public class SpringMvcConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		  http
 		  .authorizeRequests().antMatchers("/","/css/**","/js/**","/imagen/**","/","/pelicula/mosaico"
-				  ,"/serie/mosaico","/personajes/mosaico","/account/**","/upload/**").permitAll()
+				  ,"/serie/mosaico","/personajes/mosaico","/account/**","/upload/**","/api/peliculas").permitAll()
 		 .and().formLogin()
 		 .successHandler(successHandler)
 		 .loginPage("/login")

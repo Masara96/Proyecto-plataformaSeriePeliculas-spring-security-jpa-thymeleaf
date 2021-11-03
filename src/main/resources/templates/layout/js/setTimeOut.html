@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+        <script type="text/javascript" th:fragment="javascript">
+             
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#divTimeOut").fadeOut(1000);
+            },3000);
+ 
+        });
+        
+        </script>
+        
+       <script src="https://code.jquery.com/jquery-3.2.1.js"></script> 
+</body>
+</html>

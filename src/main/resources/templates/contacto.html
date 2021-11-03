@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout2 :: head">
+</head>
+<body id="page-top" class="bodyformar">
+	<nav th:replace="layout/layout2 :: nav"></nav>
+
+	<div th:replace="layout/layout2 :: alert"></div>
+
+	<section class="page-section portfolio">
+        
+       <div > 
+		<section th:replace="layout/layout2 :: section-contact"></section>
+        </div>
+	</section>
+	<section class="fixed-bottom">
+		<div class="footer-other">
+			<footer th:replace="layout/layout2 ::footer"></footer>
+			<div th:replace="layout/layout2 ::copyright"></div>
+		</div>
+	</section>
+</body>
+</html>
